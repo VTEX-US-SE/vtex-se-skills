@@ -20,10 +20,11 @@ Adapted from [gstack](https://github.com/garrytan/gstack),
 layout, plus per-skill versioning from gstack:
 
 - `AGENTS.md` / `CLAUDE.md` — same content, so Claude Code and other agent runtimes pick up the
-  same rules. `GEMINI.md` imports `AGENTS.md` for Gemini.
+  same rules.
 - `CONTEXT.md` — VTEX-specific vocabulary (SE, Rocketlane, Atlas, FastStore, and so on).
-- `.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/`, `gemini-extension.json` — plugin
-  manifests so this repo can be installed directly in each runtime.
+- `.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/` — plugin manifests so this repo can be
+  installed directly in each runtime. See **Runtime support** below for why there's no
+  Gemini/Grok manifest.
 - `skills/<category>/<skill-name>/SKILL.md` — one folder per skill, grouped by category. Each
   skill's own `SKILL.md` carries its own `version:` field in the frontmatter (skills evolve
   independently via PR, not on a shared repo-wide version). Categories:
@@ -34,6 +35,21 @@ layout, plus per-skill versioning from gstack:
   - `skills/deprecated/` — replaced or absorbed, kept for history.
 
 No skill has been migrated in yet. Tracked in Rocketlane task #43751748.
+
+## Runtime support
+
+- **Claude Code, Codex, Cursor** — plugin manifest in `.claude-plugin/`, `.codex-plugin/`,
+  `.cursor-plugin/` respectively.
+- **Gemini CLI** — dropped. Google retired it on 2026-06-18 in favor of Antigravity, so there's
+  no `GEMINI.md`/`gemini-extension.json` here.
+- **Antigravity** (Gemini CLI's successor) — discovers `AGENTS.md` at the repo root
+  automatically, no extra file needed for rules. Skill discovery is a separate mechanism
+  (`.agents/skills/<skill-folder>/SKILL.md`), not set up yet: Google's docs don't confirm
+  whether nested category folders are supported there, and we have no migrated skill yet to test
+  it against. Revisit once the first skill lands.
+- **Grok Build** (xAI/SpaceXAI, Cursor's new parent company) — no manifest needed. It reads
+  Claude Code plugins, skills, and instruction files directly, so `.claude-plugin/` and
+  `skills/` already work there as-is.
 
 ## Contributing
 

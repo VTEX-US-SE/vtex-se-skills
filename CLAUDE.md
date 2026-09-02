@@ -1,7 +1,7 @@
 # vtex-se-skills — agent instructions
 
 This repo collects skills used by the VTEX Solution Engineering team, packaged to run across
-multiple agent runtimes (Claude Code, Codex, Cursor, Gemini).
+multiple agent runtimes (Claude Code, Codex, Cursor, Grok Build, Antigravity).
 
 ## Status
 
