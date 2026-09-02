@@ -1,0 +1,65 @@
+{
+  "description": "Maps VAMS flow (type, timing) to Miro connector style. Color: gray (#333333) = Async timing, blue (#659df2) = Real-Time timing. Line: solid (normal) = Data, dotted/dashed = Event. Caps: startStrokeCap none = tail, endStrokeCap arrow = head; import may swap start/end when reversed.",
+  "mappings": [
+    {
+      "description": "Data flow, Async (gray, solid)",
+      "vams": {
+        "type": "Data",
+        "timing": "Async"
+      },
+      "miro": {
+        "style": {
+          "strokeStyle": "normal",
+          "strokeColor": "#333333",
+          "startStrokeCap": "none",
+          "endStrokeCap": "rounded_stealth"
+        }
+      }
+    },
+    {
+      "description": "Event flow, Async (gray, dotted)",
+      "vams": {
+        "type": "Event",
+        "timing": "Async"
+      },
+      "miro": {
+        "style": {
+          "strokeStyle": "dotted",
+          "strokeColor": "#333333",
+          "startStrokeCap": "none",
+          "endStrokeCap": "rounded_stealth"
+        }
+      }
+    },
+    {
+      "description": "Data flow, Real-Time (blue, solid)",
+      "vams": {
+        "type": "Data",
+        "timing": "Real-Time"
+      },
+      "miro": {
+        "style": {
+          "strokeStyle": "normal",
+          "strokeColor": "#659df2",
+          "startStrokeCap": "none",
+          "endStrokeCap": "rounded_stealth"
+        }
+      }
+    },
+    {
+      "description": "Event flow, Real-Time (blue, dotted)",
+      "vams": {
+        "type": "Event",
+        "timing": "Real-Time"
+      },
+      "miro": {
+        "style": {
+          "strokeStyle": "dotted",
+          "strokeColor": "#659df2",
+          "startStrokeCap": "none",
+          "endStrokeCap": "rounded_stealth"
+        }
+      }
+    }
+  ]
+}

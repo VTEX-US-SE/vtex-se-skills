@@ -33,8 +33,13 @@ layout, plus per-skill versioning from gstack:
   - `skills/governance/` — reporting, health checks, and internal process tooling.
   - `skills/in-progress/` — being built or actively reworked.
   - `skills/deprecated/` — replaced or absorbed, kept for history.
+- `docs/<category>/<skill-name>.md` — a human-readable companion page per skill (what it does,
+  when to use it, prerequisites, author), separate from the machine-facing `SKILL.md`.
+- `CONTRIBUTING.md` — the full format standard every skill here follows. Read it before adding or
+  changing a skill.
 
-No skill has been migrated in yet. Tracked in Rocketlane task #43751748.
+First 4 skills migrated (02/09): `vtex-brand-guidelines`, `stakeholder-scout`, `solution-design`,
+`vams-to-miro` — all under `skills/presales/`. Tracked in Rocketlane task #43751748.
 
 ## Runtime support
 

@@ -1,0 +1,694 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://atlas.vtex.com/schemas/solution-architecture.schema.json",
+  "title": "Solution Architecture Specification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "level", "architecture"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Human-readable architecture name"
+    },
+    "level": {
+      "type": "string",
+      "enum": ["Highlevel", "Detail", "Sequence"],
+      "description": "Level of architectural abstraction"
+    },
+    "domain": {
+      "type": "string",
+      "description": "Business or technical domain (e.g., Commerce, Payments)"
+    },
+    "client": {
+      "type": "string",
+      "description": "Client or customer name for this architecture"
+    },
+    "VTEXAccounts": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "VTEX account names associated with this architecture"
+    },
+    "metadata": {
+      "$ref": "#/$defs/metadata"
+    },
+    "architecture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nodes", "flows", "dataEntities", "environments"],
+      "properties": {
+        "constraints": {
+          "$ref": "#/$defs/constraints"
+        },
+        "nodes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/node" }
+        },
+        "flows": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/flow" }
+        },
+        "dataEntities": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/dataEntity" }
+        },
+        "environments": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/environment" },
+          "description": "List of environments defined for this architecture. Node environment property must reference one of these by id."
+        }
+      }
+    }
+  },
+
+  "$defs": {
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "status", "createdAt", "createdBy"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique architecture identifier"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "Semantic version (e.g., 1.0.0)"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Draft", "Validated", "Approved", "Deprecated"],
+          "description": "Lifecycle state of this architecture"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "lastModifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastModifiedBy": {
+          "type": "string"
+        },
+        "validatedAgainst": {
+          "type": "string",
+          "description": "Atlas Core Model or rule set version used for validation"
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "compliance": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["PCI", "GDPR", "SOC2", "ISO27001"]
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional contextual description of the architecture"
+        },
+        "commerce": {
+          "$ref": "#/$defs/commerce",
+          "description": "E-commerce business context for this architecture. Drives Atlas validation rules and architecture classification."
+        }
+      }
+    },
+
+    "commerce": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "E-commerce business context metadata. All properties are optional to allow incremental adoption.",
+      "properties": {
+        "businessModel": {
+          "type": "array",
+          "description": "One or more business models covered by this architecture. Array allows mixed implementations (e.g. B2B + B2C on same platform).",
+          "items": {
+            "type": "string",
+            "enum": ["B2C", "B2B", "B2B2C", "D2C", "Marketplace"]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+
+        "accountType": {
+          "type": "string",
+          "description": "VTEX account topology. 'Standard' = single merchant. 'Marketplace' = this architecture covers the marketplace account and all its sellers.",
+          "enum": ["Standard", "Marketplace"]
+        },
+
+        "sellerType": {
+          "type": "array",
+          "description": "Types of sellers present. Only relevant when accountType is 'Marketplace'.",
+          "items": {
+            "type": "string",
+            "enum": ["1P", "3P", "Franchise", "WhiteLabel"]
+          },
+          "uniqueItems": true
+        },
+
+        "multiAccount": {
+          "type": "boolean",
+          "description": "True when the implementation spans multiple VTEX accounts (e.g. franchise networks, sub-accounts per region)."
+        },
+
+        "marketplace": {
+          "$ref": "#/$defs/marketplaceGovernance",
+          "description": "Marketplace governance rules. Required when accountType is 'Marketplace'."
+        },
+
+        "frontend": {
+          "type": "string",
+          "description": "Primary storefront technology.",
+          "enum": [
+            "Store Framework",
+            "FastStore",
+            "Headless",
+            "PWA",
+            "Sales App",
+            "Embedded"
+          ]
+        },
+
+        "cms": {
+          "type": "string",
+          "description": "Content management system in use.",
+          "enum": ["Site Editor", "Headless CMS", "External CMS", "None"]
+        },
+
+        "channels": {
+          "type": "array",
+          "description": "Customer-facing sales and interaction channels covered by this architecture.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Web",
+              "Mobile App",
+              "PWA",
+              "POS",
+              "Call Center",
+              "IoT",
+              "Conversational",
+              "Live Shopping"
+            ]
+          },
+          "uniqueItems": true
+        },
+
+        "cdn": {
+          "type": "string",
+          "description": "CDN provider used for storefront delivery.",
+          "enum": [
+            "VTEX Native",
+            "Cloudflare",
+            "Akamai",
+            "AWS CloudFront",
+            "Custom"
+          ]
+        },
+
+        "multiLanguage": {
+          "type": "boolean",
+          "description": "True when the implementation serves content in more than one language. Implies catalog translation and CMS localisation requirements."
+        },
+
+        "multiCurrency": {
+          "type": "boolean",
+          "description": "True when the implementation supports more than one currency. Implies pricing and checkout currency-switching architecture."
+        },
+
+        "tradePolicies": {
+          "type": "integer",
+          "description": "Number of VTEX trade policies configured in this architecture. Relevant for multi-region, multi-segment, and franchise architectures.",
+          "minimum": 1
+        },
+
+        "searchProvider": {
+          "type": "string",
+          "description": "Search and discovery engine in use.",
+          "enum": [
+            "VTEX Intelligent Search",
+            "Constructor",
+            "Algolia",
+            "Custom"
+          ]
+        },
+
+        "catalogSource": {
+          "type": "string",
+          "description": "System of record for product catalog data.",
+          "enum": ["VTEX Catalog", "PIM", "ERP", "Hybrid"]
+        },
+
+        "hasPricePerCustomer": {
+          "type": "boolean",
+          "description": "True when customer-specific or contract-based pricing is in use (B2B price tables, PROS integration, etc.)."
+        },
+
+        "paymentMethods": {
+          "type": "array",
+          "description": "Payment methods and gateways integrated. Free-form strings to accommodate the full vendor landscape.",
+          "items": { "type": "string" }
+        },
+
+        "antiFraud": {
+          "type": "string",
+          "description": "Anti-fraud provider integrated with VTEX Payment Hub.",
+          "enum": [
+            "VTEX Native",
+            "Accertify",
+            "Riskified",
+            "Signifyd",
+            "ClearSale",
+            "Custom",
+            "None"
+          ]
+        },
+
+        "taxEngine": {
+          "type": "string",
+          "description": "Tax calculation provider.",
+          "enum": ["VTEX Native", "Vertex", "Avalara", "Custom", "None"]
+        },
+
+        "checkoutType": {
+          "type": "string",
+          "description": "Checkout implementation model.",
+          "enum": [
+            "VTEX SmartCheckout",
+            "VTEX Fastcheckout",
+            "Headless Checkout",
+            "Embedded Checkout",
+            "Custom"
+          ]
+        },
+
+        "paymentSplitModel": {
+          "type": "string",
+          "description": "Payment split/intermediation model. Only relevant when accountType is 'Marketplace'.",
+          "enum": ["None", "Marketplace-Split", "External-Split"]
+        },
+
+        "hasSubscriptions": {
+          "type": "boolean",
+          "description": "True when VTEX Subscriptions or equivalent recurring order flow is implemented."
+        },
+
+        "hasGiftCard": {
+          "type": "boolean",
+          "description": "True when gift card as a payment method or product is part of the architecture."
+        },
+
+        "hasLoyalty": {
+          "type": "boolean",
+          "description": "True when a loyalty or points programme is integrated (e.g. Zinrelo, custom, VTEX native)."
+        },
+
+        "hasCustomerCredit": {
+          "type": "boolean",
+          "description": "True when VTEX Customer Credit or an equivalent charge-account/net-terms payment flow is implemented."
+        },
+
+        "omsProvider": {
+          "type": "string",
+          "description": "Order management system. Use 'External' when VTEX OMS is bypassed in favour of a third-party OMS.",
+          "enum": ["VTEX OMS", "Kibo", "External", "Custom"]
+        },
+
+        "fulfillmentModel": {
+          "type": "array",
+          "description": "Fulfilment strategies covered by this architecture.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Warehouse",
+              "Ship-from-store",
+              "Dropship",
+              "Click-and-collect",
+              "Same-day-delivery"
+            ]
+          },
+          "uniqueItems": true
+        },
+
+        "hasReturnsFlow": {
+          "type": "boolean",
+          "description": "True when a returns flow (VTEX Returns App or custom) is part of the architecture."
+        },
+
+        "multiWarehouse": {
+          "type": "boolean",
+          "description": "True when inventory spans multiple warehouses or fulfilment centres."
+        },
+
+        "hasStorePickup": {
+          "type": "boolean",
+          "description": "True when click-and-collect / BOPIS is supported."
+        },
+
+        "hasSameDayDelivery": {
+          "type": "boolean",
+          "description": "True when same-day delivery via a last-mile partner (e.g. Uber, Instacart) is part of the architecture."
+        },
+
+        "hasOrderReconciliation": {
+          "type": "boolean",
+          "description": "True when a financial order reconciliation flow between marketplace and sellers exists."
+        },
+
+        "erp": {
+          "type": "string",
+          "description": "ERP system integrated with VTEX (free-form to accommodate the full vendor landscape, e.g. SAP, Oracle EBS, Linx)."
+        },
+
+        "wms": {
+          "type": "string",
+          "description": "Warehouse management system integrated with VTEX (e.g. Korber, custom)."
+        },
+
+        "pim": {
+          "type": "string",
+          "description": "Product information management system used as catalog source (e.g. Salsify, Stibo, Akeneo)."
+        },
+
+        "crm": {
+          "type": "string",
+          "description": "CRM system integrated for customer data (e.g. Salesforce, Oracle CX)."
+        },
+
+        "identityProvider": {
+          "type": "string",
+          "description": "Identity / SSO provider used alongside VTEX ID.",
+          "enum": [
+            "VTEX ID",
+            "Azure AD",
+            "Azure B2C",
+            "Okta",
+            "Auth0",
+            "Custom"
+          ]
+        },
+
+        "analyticsProvider": {
+          "type": "array",
+          "description": "Web analytics platforms integrated.",
+          "items": { "type": "string" }
+        },
+
+        "dataWarehouse": {
+          "type": "string",
+          "description": "Data warehouse or lakehouse receiving VTEX data (e.g. Snowflake, BigQuery)."
+        },
+
+        "cdpOrPersonalization": {
+          "type": "array",
+          "description": "Customer data platform or personalisation tools integrated (e.g. Adobe Target, Criteo, Segment).",
+          "items": { "type": "string" }
+        },
+
+        "hasDataPipeline": {
+          "type": "boolean",
+          "description": "True when VTEX Data Pipeline is explicitly configured for data export."
+        },
+
+        "region": {
+          "type": "array",
+          "description": "ISO 3166-1 alpha-2 country codes covered by this architecture.",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          },
+          "uniqueItems": true
+        },
+
+        "currency": {
+          "type": "array",
+          "description": "ISO 4217 currency codes supported.",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$"
+          },
+          "uniqueItems": true
+        },
+
+        "language": {
+          "type": "array",
+          "description": "BCP 47 language tags for the locales supported (e.g. en-US, pt-BR, es-CO).",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        }
+      },
+
+      "if": {
+        "properties": { "accountType": { "const": "Marketplace" } },
+        "required": ["accountType"]
+      },
+      "then": {
+        "required": ["marketplace"],
+        "properties": {
+          "sellerType": { "type": "array", "minItems": 1 }
+        }
+      }
+    },
+
+    "marketplaceGovernance": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Governance rules defining ownership responsibilities between the marketplace operator and its sellers. Required when accountType is 'Marketplace'.",
+      "required": [
+        "priceOwnership",
+        "paymentOwnership",
+        "catalogOwnership",
+        "fulfillmentOwnership"
+      ],
+      "properties": {
+        "priceOwnership": {
+          "type": "string",
+          "description": "Who sets the final consumer price. 'Marketplace' = operator controls all prices. 'Seller' = each seller controls their own prices. 'Hybrid' = mix of both (e.g. operator sets floor, seller sets final).",
+          "enum": ["Marketplace", "Seller", "Hybrid"]
+        },
+
+        "paymentOwnership": {
+          "type": "string",
+          "description": "Who processes the payment transaction. 'Marketplace' = operator collects and remits to sellers. 'Seller' = each seller processes their own payments independently. 'Split' = marketplace collects and performs automated payment split.",
+          "enum": ["Marketplace", "Seller", "Split"]
+        },
+
+        "catalogOwnership": {
+          "type": "string",
+          "description": "Who owns the product catalog master data. 'Marketplace' = operator owns and sellers inherit. 'Seller' = sellers manage their own SKUs. 'Shared' = catalog matcher used to map seller SKUs to marketplace catalog.",
+          "enum": ["Marketplace", "Seller", "Shared"]
+        },
+
+        "fulfillmentOwnership": {
+          "type": "string",
+          "description": "Who is responsible for order fulfilment logistics.",
+          "enum": ["Marketplace", "Seller", "Mixed"]
+        },
+
+        "sellerOnboarding": {
+          "type": "string",
+          "description": "How sellers are onboarded onto the marketplace.",
+          "enum": ["Seller Portal", "API", "Manual", "Custom"]
+        }
+      }
+    },
+
+    "nodeRef": {
+      "type": "string",
+      "description": "Reference to a node by its id"
+    },
+
+    "dataEntityRef": {
+      "type": "string",
+      "description": "Reference to a dataEntity by its id"
+    },
+
+    "environmentRef": {
+      "type": "string",
+      "description": "Reference to an environment by its id"
+    },
+
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9-_]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "type"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9-_]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Group",
+            "Platform",
+            "System",
+            "Component",
+            "Application",
+            "Middleware"
+          ]
+        },
+        "environment": {
+          "$ref": "#/$defs/environmentRef",
+          "description": "Reference to the runtime environment (by id) where the node runs. Must reference one of the environments defined in architecture.environments."
+        },
+        "implementation": {
+          "type": "string",
+          "enum": ["Native", "Custom"],
+          "description": "Whether the node is a native (out-of-the-box) or custom implementation"
+        },
+        "parent": {
+          "$ref": "#/$defs/nodeRef"
+        }
+      }
+    },
+
+    "flow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "origin", "destination"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9-_]+$"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["Data", "Event"]
+        },
+        "origin": {
+          "$ref": "#/$defs/nodeRef"
+        },
+        "destination": {
+          "$ref": "#/$defs/nodeRef"
+        },
+        "timing": {
+          "type": "string",
+          "enum": ["Real-Time", "Async"],
+          "description": "Whether the flow is real-time (synchronous) or asynchronous"
+        },
+        "data": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/dataEntityRef" }
+        },
+        "event": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "dataEntity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9-_]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "examplePayload": {
+          "type": "string",
+          "description": "Serialized JSON example or structured payload example"
+        }
+      }
+    },
+
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Hierarchy and relationship constraints. Applications should validate that node parent-child relationships conform to these rules.",
+      "properties": {
+        "hierarchy": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Defines allowed child node types for each parent node type. Each property name is a parent node type, and its value is an array of allowed child node types. Applications must validate that nodes respect these hierarchy rules.",
+          "properties": {
+            "Group": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "Platform",
+                  "System",
+                  "Application",
+                  "Middleware",
+                  "Component"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "Platform": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["Groups", "Application", "Component"]
+              },
+              "uniqueItems": true
+            },
+            "System": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["Groups", "Application", "Component"]
+              },
+              "uniqueItems": true
+            },
+            "Application": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["Component"]
+              },
+              "uniqueItems": true
+            },
+            "Middleware": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["Component"]
+              },
+              "uniqueItems": true
+            }
+          }
+        }
+      }
+    }
+  }
+}

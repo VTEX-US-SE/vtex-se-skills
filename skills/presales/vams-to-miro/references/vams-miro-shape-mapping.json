@@ -1,0 +1,233 @@
+{
+  "description": "Maps VAMS node (type, environment, implementation) to Miro shape data and style.",
+  "mappings": [
+    {
+      "description": "VTEX Native Component",
+      "vams": {
+        "type": "Component",
+        "environment": "vtex",
+        "implementation": "Native"
+      },
+      "miro": {
+        "data": {
+          "shape": "round_rectangle"
+        },
+        "style": {
+          "fillColor": "#fdd1e0",
+          "fillOpacity": "1.0",
+          "borderColor": "#f71963",
+          "borderStyle": "normal"
+        }
+      }
+    },
+    {
+      "description": "VTEX Custom Component",
+      "vams": {
+        "type": "Component",
+        "environment": "vtex",
+        "implementation": "Custom"
+      },
+      "miro": {
+        "data": {
+          "shape": "round_rectangle"
+        },
+        "style": {
+          "fillColor": "#ffffff",
+          "fillOpacity": "1.0",
+          "borderColor": "#f71963",
+          "borderStyle": "normal"
+        }
+      }
+    },
+    {
+      "description": "Default Component (any environment/implementation)",
+      "vams": {
+        "type": "Component",
+        "environment": "*",
+        "implementation": "*"
+      },
+      "miro": {
+        "data": {
+          "shape": "round_rectangle"
+        },
+        "style": {
+          "fillColor": "#ffffff",
+          "fillOpacity": "1.0",
+          "borderColor": "#595959",
+          "borderStyle": "normal"
+        }
+      }
+    },
+    {
+      "description": "VTEXT IO Native Application",
+      "vams": {
+        "type": "Application",
+        "environment": "vtex-io",
+        "implementation": "Native"
+      },
+      "miro": {
+        "data": {
+          "shape": "rectangle"
+        },
+        "style": {
+          "fillColor": "#fdd1e0",
+          "fillOpacity": "1.0",
+          "borderColor": "#f71963",
+          "borderStyle": "normal"
+        }
+      }
+    },
+    {
+      "description": "VTEXT IO Custom Application",
+      "vams": {
+        "type": "Application",
+        "environment": "vtex-io",
+        "implementation": "Custom"
+      },
+      "miro": {
+        "data": {
+          "shape": "rectangle"
+        },
+        "style": {
+          "fillColor": "#ffffff",
+          "fillOpacity": "1.0",
+          "borderColor": "#f71963",
+          "borderStyle": "normal"
+        }
+      }
+    },
+    {
+      "description": "External Application (any implementation)",
+      "vams": {
+        "type": "Application",
+        "environment": "external",
+        "implementation": "*"
+      },
+      "miro": {
+        "data": {
+          "shape": "rectangle"
+        },
+        "style": {
+          "fillColor": "#ffffff",
+          "fillOpacity": "1.0",
+          "borderColor": "#595959",
+          "borderStyle": "normal"
+        }
+      }
+    },
+    {
+      "description": "Merchant Middleware (any implementation)",
+      "vams": {
+        "type": "Middleware",
+        "environment": "merchant",
+        "implementation": "*"
+      },
+      "miro": {
+        "data": {
+          "shape": "round_rectangle"
+        },
+        "style": {
+          "fillColor": "#e7e7e7",
+          "fillOpacity": "1.0",
+          "borderColor": "#1a1a1a",
+          "borderStyle": "normal"
+        }
+      }
+    },
+    {
+      "description": "Merchant System (any implementation)",
+      "vams": {
+        "type": "System",
+        "environment": "merchant",
+        "implementation": "*"
+      },
+      "miro": {
+        "data": {
+          "shape": "rectangle"
+        },
+        "style": {
+          "fillColor": "#e7e7e7",
+          "fillOpacity": "1.0",
+          "borderColor": "#1a1a1a",
+          "borderStyle": "normal"
+        }
+      }
+    },
+    {
+      "description": "VTEX Platform",
+      "vams": {
+        "type": "Platform",
+        "environment": "vtex",
+        "implementation": "*"
+      },
+      "miro": {
+        "data": {
+          "shape": "round_rectangle"
+        },
+        "style": {
+          "fillColor": "#ffffff",
+          "fillOpacity": "0.0",
+          "borderColor": "#f71963",
+          "borderStyle": "normal"
+        }
+      }
+    },
+    {
+      "description": "External Platform",
+      "vams": {
+        "type": "Platform",
+        "environment": "external",
+        "implementation": "*"
+      },
+      "miro": {
+        "data": {
+          "shape": "round_rectangle"
+        },
+        "style": {
+          "fillColor": "#ffffff",
+          "fillOpacity": "0.0",
+          "borderColor": "#595959",
+          "borderStyle": "normal"
+        }
+      }
+    },
+    {
+      "description": "VTEX Group",
+      "vams": {
+        "type": "Group",
+        "environment": "vtex",
+        "implementation": "*"
+      },
+      "miro": {
+        "data": {
+          "shape": "rectangle"
+        },
+        "style": {
+          "fillColor": "#b0b0b0",
+          "fillOpacity": "0.2",
+          "borderColor": "#f71963",
+          "borderStyle": "dashed"
+        }
+      }
+    },
+    {
+      "description": "Default Group",
+      "vams": {
+        "type": "Group",
+        "environment": "*",
+        "implementation": "*"
+      },
+      "miro": {
+        "data": {
+          "shape": "rectangle"
+        },
+        "style": {
+          "fillColor": "#ffffff",
+          "fillOpacity": "0.0",
+          "borderColor": "#1a1a1a",
+          "borderStyle": "normal"
+        }
+      }
+    }
+  ]
+}

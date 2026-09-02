@@ -1,0 +1,3116 @@
+{
+    "id": "uXjVG-c2CVw=",
+    "type": "board",
+    "name": "VAMS B2C Franchise Template",
+    "description": "",
+    "items": [
+        {
+            "id": "3458764679100651715",
+            "type": "frame",
+            "data": {
+                "format": "custom",
+                "showContent": true,
+                "title": "Flows",
+                "type": "unknown"
+            },
+            "style": {
+                "fillColor": "#ffffffff"
+            },
+            "geometry": {
+                "width": 2237.47343755456,
+                "height": 560.2768907233391
+            },
+            "position": {
+                "x": 335.2136155069301,
+                "y": 2243.317180128437,
+                "origin": "center",
+                "relativeTo": "canvas_center"
+            }
+        },
+        {
+            "id": "3458764679100651716",
+            "type": "frame",
+            "data": {
+                "format": "custom",
+                "showContent": true,
+                "title": "Data",
+                "type": "unknown"
+            },
+            "style": {
+                "fillColor": "#ffffffff"
+            },
+            "geometry": {
+                "width": 927.405732655986,
+                "height": 243.8032678532394
+            },
+            "position": {
+                "x": -162.5385410952905,
+                "y": 2243.317180128437,
+                "origin": "center",
+                "relativeTo": "canvas_center"
+            }
+        },
+        {
+            "id": "3458764679100651719",
+            "type": "text",
+            "data": {
+                "content": "<p><span style=\"background-color:transparent\">Real-Time connection</span></p>"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "0.0",
+                "fontFamily": "noto_sans",
+                "fontSize": "48",
+                "textAlign": "left",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 486.85714285714283
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651716"
+                },
+                "id": "3458764679100651716"
+            },
+            "position": {
+                "x": 652.1828345988001,
+                "y": 173.614039806353,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651720",
+            "type": "text",
+            "data": {
+                "content": "<p><span style=\"background-color:transparent\">Async connection</span></p>"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "0.0",
+                "fontFamily": "noto_sans",
+                "fontSize": "48",
+                "textAlign": "left",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 397.71428571428567
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651716"
+                },
+                "id": "3458764679100651716"
+            },
+            "position": {
+                "x": 607.6114060273715,
+                "y": 75.48018769265622,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651721",
+            "type": "frame",
+            "data": {
+                "format": "custom",
+                "showContent": true,
+                "title": "Nodes",
+                "type": "unknown"
+            },
+            "style": {
+                "fillColor": "#ffffffff"
+            },
+            "geometry": {
+                "width": 2637.9879174498087,
+                "height": 2201.554766886961
+            },
+            "position": {
+                "x": 535.4708554545545,
+                "y": 687.002278807315,
+                "origin": "center",
+                "relativeTo": "canvas_center"
+            }
+        },
+        {
+            "id": "3458764679100651722",
+            "type": "frame",
+            "data": {
+                "format": "custom",
+                "showContent": true,
+                "title": "Components",
+                "type": "unknown"
+            },
+            "style": {
+                "fillColor": "#ffffffff"
+            },
+            "geometry": {
+                "width": 719.6029295977504,
+                "height": 1023.9284577009054
+            },
+            "position": {
+                "x": -345.78984860026287,
+                "y": 256.599627637078,
+                "origin": "center",
+                "relativeTo": "canvas_center"
+            }
+        },
+        {
+            "id": "3458764679100651723",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Component<br />(VTEX / Native)</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 560.9031176460408,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651722"
+                },
+                "id": "3458764679100651722"
+            },
+            "position": {
+                "x": 361.21958090351796,
+                "y": 161.61232623123914,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651724",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Component<br />(VTEX / Custom)</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 560.9031176460409,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651722"
+                },
+                "id": "3458764679100651722"
+            },
+            "position": {
+                "x": 361.21958090351796,
+                "y": 401.68832253875865,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651725",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Component<br />( - / -)</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 560.9031176460409,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651722"
+                },
+                "id": "3458764679100651722"
+            },
+            "position": {
+                "x": 359.8014647988752,
+                "y": 641.7643188462782,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651726",
+            "type": "frame",
+            "data": {
+                "format": "custom",
+                "showContent": true,
+                "title": "Applications",
+                "type": "unknown"
+            },
+            "style": {
+                "fillColor": "#ffffffff"
+            },
+            "geometry": {
+                "width": 719.6029295977504,
+                "height": 1023.9284577009055
+            },
+            "position": {
+                "x": 534.3051398121119,
+                "y": 256.59962763707813,
+                "origin": "center",
+                "relativeTo": "canvas_center"
+            }
+        },
+        {
+            "id": "3458764679100651727",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Application<br />(VTEX IO - Native)</strong></p>",
+                "shape": "rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 560.9031176460409,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651726"
+                },
+                "id": "3458764679100651726"
+            },
+            "position": {
+                "x": 359.8014647988752,
+                "y": 160.87946571094403,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651728",
+            "type": "frame",
+            "data": {
+                "format": "custom",
+                "showContent": true,
+                "title": "Middleware &amp; System",
+                "type": "unknown"
+            },
+            "style": {
+                "fillColor": "#ffffffff"
+            },
+            "geometry": {
+                "width": 719.6029295977504,
+                "height": 560.2768907233394
+            },
+            "position": {
+                "x": 1412.8433379658613,
+                "y": 24.77384414829521,
+                "origin": "center",
+                "relativeTo": "canvas_center"
+            }
+        },
+        {
+            "id": "3458764679100651729",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Middleware<br />( Merchant / - )</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#e7e7e7",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#1a1a1a",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 560.9031176460409,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651728"
+                },
+                "id": "3458764679100651728"
+            },
+            "position": {
+                "x": 359.8014647988752,
+                "y": 161.61232623123897,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651730",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>System<br />( Merchant / - )</strong></p>",
+                "shape": "rectangle"
+            },
+            "style": {
+                "fillColor": "#e7e7e7",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#1a1a1a",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 560.9031176460409,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651728"
+                },
+                "id": "3458764679100651728"
+            },
+            "position": {
+                "x": 359.8014647988752,
+                "y": 401.6883225387587,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651731",
+            "type": "frame",
+            "data": {
+                "format": "custom",
+                "showContent": true,
+                "title": "Platforms",
+                "type": "unknown"
+            },
+            "style": {
+                "fillColor": "#ffffffff"
+            },
+            "geometry": {
+                "width": 719.6029295977504,
+                "height": 780.6761101704474
+            },
+            "position": {
+                "x": -345.78984860026287,
+                "y": 1263.5446350355062,
+                "origin": "center",
+                "relativeTo": "canvas_center"
+            }
+        },
+        {
+            "id": "3458764679100651732",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Platform<br />(VTEX / -)</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "0.0",
+                "fontFamily": "open_sans",
+                "fontSize": "48",
+                "borderColor": "#f71963",
+                "borderWidth": "8.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "top",
+                "color": "#f71963"
+            },
+            "geometry": {
+                "width": 560.9031176460409,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651731"
+                },
+                "id": "3458764679100651731"
+            },
+            "position": {
+                "x": 359.8014647988751,
+                "y": 160.9392338734283,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651733",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Platform<br />(External / -)</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "0.0",
+                "fontFamily": "open_sans",
+                "fontSize": "48",
+                "borderColor": "#595959",
+                "borderWidth": "8.0",
+                "borderOpacity": "0.6",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "top",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 560.9031176460409,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651731"
+                },
+                "id": "3458764679100651731"
+            },
+            "position": {
+                "x": 359.8014647988751,
+                "y": 401.0912264884673,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651734",
+            "type": "frame",
+            "data": {
+                "format": "custom",
+                "showContent": true,
+                "title": "Groups",
+                "type": "unknown"
+            },
+            "style": {
+                "fillColor": "#ffffffff"
+            },
+            "geometry": {
+                "width": 719.6029295977504,
+                "height": 780.6761101704474
+            },
+            "position": {
+                "x": 534.3051398121119,
+                "y": 1263.5446350355062,
+                "origin": "center",
+                "relativeTo": "canvas_center"
+            }
+        },
+        {
+            "id": "3458764679100651735",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Group<br />( VTEX / - )</strong></p>",
+                "shape": "rectangle"
+            },
+            "style": {
+                "fillColor": "#b0b0b0",
+                "fillOpacity": "0.2",
+                "fontFamily": "open_sans",
+                "fontSize": "48",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "dashed",
+                "textAlign": "left",
+                "textAlignVertical": "top",
+                "color": "#f71963"
+            },
+            "geometry": {
+                "width": 560.9031176460409,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651734"
+                },
+                "id": "3458764679100651734"
+            },
+            "position": {
+                "x": 359.8014647988752,
+                "y": 162.47800095622551,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651736",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Group<br />( - / - )</strong></p>",
+                "shape": "rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "0.0",
+                "fontFamily": "open_sans",
+                "fontSize": "48",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "0.6",
+                "borderStyle": "normal",
+                "textAlign": "left",
+                "textAlignVertical": "top",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 560.9031176460409,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651734"
+                },
+                "id": "3458764679100651734"
+            },
+            "position": {
+                "x": 359.8014647988752,
+                "y": 402.62999357126455,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651737",
+            "type": "frame",
+            "data": {
+                "format": "custom",
+                "showContent": true,
+                "title": "Event",
+                "type": "unknown"
+            },
+            "style": {
+                "fillColor": "#ffffffff"
+            },
+            "geometry": {
+                "width": 927.405732655986,
+                "height": 243.8032678532391
+            },
+            "position": {
+                "x": 877.5427953071791,
+                "y": 2243.317180128437,
+                "origin": "center",
+                "relativeTo": "canvas_center"
+            }
+        },
+        {
+            "id": "3458764679100651740",
+            "type": "text",
+            "data": {
+                "content": "<p><span style=\"background-color:transparent\">Real-Time event</span></p>"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "0.0",
+                "fontFamily": "noto_sans",
+                "fontSize": "48",
+                "textAlign": "left",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 360
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651737"
+                },
+                "id": "3458764679100651737"
+            },
+            "position": {
+                "x": 588.7542631702291,
+                "y": 169.19259357238914,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651741",
+            "type": "text",
+            "data": {
+                "content": "<p><span style=\"background-color:transparent\">Async event</span></p>"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "0.0",
+                "fontFamily": "noto_sans",
+                "fontSize": "48",
+                "textAlign": "left",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 270.85714285714283
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651737"
+                },
+                "id": "3458764679100651737"
+            },
+            "position": {
+                "x": 544.1828345988002,
+                "y": 71.05874145869237,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651742",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Application<br />(VTEX IO - Custom)</strong></p>",
+                "shape": "rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 560.9031176460409,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651726"
+                },
+                "id": "3458764679100651726"
+            },
+            "position": {
+                "x": 359.8014647988752,
+                "y": 401.0314583259832,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651743",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Application<br />( External / - )</strong></p>",
+                "shape": "rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 560.9031176460409,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651726"
+                },
+                "id": "3458764679100651726"
+            },
+            "position": {
+                "x": 360.9671804413177,
+                "y": 641.1834509410223,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651744",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Component<br />( AWS / -)</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#305bab",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 560.9031176460409,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651722"
+                },
+                "id": "3458764679100651722"
+            },
+            "position": {
+                "x": 359.8014647988752,
+                "y": 881.9163114613174,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651745",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Application<br />( AWS / - )</strong></p>",
+                "shape": "rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#305bab",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 560.9031176460409,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651726"
+                },
+                "id": "3458764679100651726"
+            },
+            "position": {
+                "x": 359.8014647988752,
+                "y": 881.3354435560614,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651746",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Platform<br />(AWS / -)</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "0.0",
+                "fontFamily": "open_sans",
+                "fontSize": "48",
+                "borderColor": "#305bab",
+                "borderWidth": "8.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "top",
+                "color": "#305bab"
+            },
+            "geometry": {
+                "width": 560.9031176460409,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651731"
+                },
+                "id": "3458764679100651731"
+            },
+            "position": {
+                "x": 359.8014647988752,
+                "y": 641.2432191035064,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679100651747",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Group<br />( AWS / - )</strong></p>",
+                "shape": "rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "0.0",
+                "fontFamily": "open_sans",
+                "fontSize": "48",
+                "borderColor": "#305bab",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "dashed",
+                "textAlign": "left",
+                "textAlignVertical": "top",
+                "color": "#305bab"
+            },
+            "geometry": {
+                "width": 560.9031176460409,
+                "height": 160.15199261503915
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679100651734"
+                },
+                "id": "3458764679100651734"
+            },
+            "position": {
+                "x": 359.8014647988752,
+                "y": 642.7819861863036,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519291",
+            "type": "frame",
+            "data": {
+                "format": "custom",
+                "showContent": true,
+                "title": "B2C Franchise",
+                "type": "unknown"
+            },
+            "style": {
+                "fillColor": "#ffffff"
+            },
+            "geometry": {
+                "width": 4945.18054608514,
+                "height": 3182.1168963873683
+            },
+            "position": {
+                "x": 1689.06716977222,
+                "y": 4674.1594665577295,
+                "origin": "center",
+                "relativeTo": "canvas_center"
+            }
+        },
+        {
+            "id": "3458764679101519292",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>VTEX Core Services</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "0.0",
+                "fontFamily": "open_sans",
+                "fontSize": "48",
+                "borderColor": "#f71963",
+                "borderWidth": "8.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "top",
+                "color": "#f71963"
+            },
+            "geometry": {
+                "width": 3431.10585762451,
+                "height": 1094.8032639916803
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1900.2550789827696,
+                "y": 1142.28162545711,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519293",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Catalog</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.45112917652
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 607.8706563081018,
+                "y": 889.6049316922984,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519294",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>OMS</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.45112917652
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 607.8706563081018,
+                "y": 1058.0560608688195,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519295",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Promotions</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.45112917652
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 607.8706563081018,
+                "y": 1226.5071900453206,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519296",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Checkout</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.45112917652
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1158.5390483558808,
+                "y": 1057.8304962805944,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519297",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Subscriptions</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.45112917652
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1158.5390483558808,
+                "y": 1226.2816254571137,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519298",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>CMS</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.45112917652
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1158.5390483558808,
+                "y": 1394.732754633633,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519299",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Message</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.45112917652
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 607.8706563081018,
+                "y": 1394.95831922192,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519300",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Payment Hub</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.45112917652
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1158.5390483558808,
+                "y": 889.6049316923347,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519301",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Authentication</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.45112917652
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1709.0298466619493,
+                "y": 889.5716832735927,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519302",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Logistics / Inventory</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.45112917652
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1709.0298466619493,
+                "y": 1058.0228124499938,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519303",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Ratings and Reviews</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1709.0670147678698,
+                "y": 1394.9749434312273,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519304",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>DaaS - Master Data</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1709.0298466619493,
+                "y": 1226.4905658359114,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519305",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Customers</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 2259.535022805307,
+                "y": 889.2796218476108,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519306",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>VTEX IO</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#b0b0b0",
+                "fillOpacity": "0.2",
+                "fontFamily": "open_sans",
+                "fontSize": "48",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "dashed",
+                "textAlign": "left",
+                "textAlignVertical": "top",
+                "color": "#f71963"
+            },
+            "geometry": {
+                "width": 615.6562515497358,
+                "height": 837.8759543042551
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 3176.6562737150566,
+                "y": 1205.1262950128823,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519307",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Custom Store Component</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 329.670117428887,
+                "height": 116.484377595316
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 3188.1986852042105,
+                "y": 1166.6579445181308,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519308",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Custom Backend service (API)</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 329.670117428883,
+                "height": 116.451129176521
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 3188.1986852042105,
+                "y": 1317.1256979040502,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519309",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>3rd Party</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "0.0",
+                "fontFamily": "open_sans",
+                "fontSize": "48",
+                "borderColor": "#1a1a1a",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "left",
+                "textAlignVertical": "top",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 1085.20650722325,
+                "height": 1094.8032639916808
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 4217.87514230307,
+                "y": 1142.28162545711,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519310",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Search</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 3967.670108179071,
+                "y": 960.299661574549,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519311",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Rating and Reviews</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 3967.670108179071,
+                "y": 1112.5418503722487,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519312",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Analytics &amp; Reporting</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 3967.670108179071,
+                "y": 1264.6573926347503,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519313",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Custom Payments</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 3967.670108179071,
+                "y": 1417.1417702301499,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519314",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Conversational XP</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 3967.670108179071,
+                "y": 1569.6261478254512,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519315",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Product Recommendations</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 4471.476875286971,
+                "y": 960.299661574549,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519316",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Loyalty</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 4471.476875286971,
+                "y": 1112.5418503722487,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519317",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>DXP</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 4471.476875286971,
+                "y": 1265.0262279674519,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519318",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>ADA</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 4471.476875286971,
+                "y": 1417.5106055628514,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519319",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>User Rights</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 4471.476875286971,
+                "y": 1569.9949831581491,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519320",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Merchant BackOffice Systems</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "0.0",
+                "fontFamily": "open_sans",
+                "fontSize": "48",
+                "borderColor": "#1a1a1a",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "left",
+                "textAlignVertical": "top",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 4575.77624574427,
+                "height": 302.006607045439
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 2472.59027304257,
+                "y": 2902.4520845038605,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519321",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Custom Admin</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 329.670117428891,
+                "height": 116.693317974179
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 3188.1986852042105,
+                "y": 1016.0690967333014,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519322",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Search</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 2259.535022805307,
+                "y": 1058.00618824061,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519323",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Pricing Hub</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 2259.366630757508,
+                "y": 1226.4905658359114,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519324",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>CPQ</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 3965.971758749071,
+                "y": 807.8152839792513,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519325",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Punchout</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 4469.778525856971,
+                "y": 807.8152839792513,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519326",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>ERP</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#e7e7e7",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#1a1a1a",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1179.6494036057707,
+                "y": 2913.4898555745513,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519327",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>OMS</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#e7e7e7",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#1a1a1a",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1657.9861877012704,
+                "y": 2916.433118917548,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519328",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>WMS</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#e7e7e7",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#1a1a1a",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 2136.322971796872,
+                "y": 2913.4898555745513,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519329",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>PIM</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#e7e7e7",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#1a1a1a",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 2614.659755892372,
+                "y": 2913.4898555745513,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519330",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>CRM</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#e7e7e7",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#1a1a1a",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 3092.9965399879698,
+                "y": 2913.4898555745513,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519331",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>DATA LAKE</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#e7e7e7",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#1a1a1a",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 396.336784095559,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 3571.3333240834695,
+                "y": 2914.9614872460497,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519332",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>VTEX APP</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 329.670117428883,
+                "height": 116.451129176521
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 3188.1986852042105,
+                "y": 1467.5768270805695,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519333",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Merchant Channels</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "0.0",
+                "fontFamily": "open_sans",
+                "fontSize": "48",
+                "borderColor": "#1a1a1a",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "left",
+                "textAlignVertical": "top",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 4575.77624574414,
+                "height": 419.36920909231816
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 2472.590273042672,
+                "y": 267.97088594493493,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519334",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Mobile App</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 501.315550561258,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 3847.1403894501714,
+                "y": 359.4263750685516,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519335",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>IOT</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#595959",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 501.315550561258,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 4402.64754809477,
+                "y": 359.4263750685516,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519336",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Sales Reps</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 501.315550561258,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 3291.4493426640697,
+                "y": 359.4263750685516,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519337",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Marketplace Out</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 501.315550561258,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 2735.75829587787,
+                "y": 359.4263750685516,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519338",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Conversational</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 501.315550561258,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 2180.067249091772,
+                "y": 359.4263750685516,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519339",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Live Shopping</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 501.315550561258,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1624.376202305572,
+                "y": 359.4263750685516,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519340",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>PWA</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 501.315550561258,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1068.685155519372,
+                "y": 361.13702676485104,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519341",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Web Store</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 501.315550561258,
+                "height": 116.484377595317
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 512.9941087332704,
+                "y": 361.13702676485104,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519342",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>CDN</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 3279.77078449204,
+                "height": 88.9339611461063
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1902.22172569867,
+                "y": 220.15424514040046,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519343",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Integration Layer</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#e7e7e7",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#1a1a1a",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 4575.77624574426,
+                "height": 116.451129176521
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 2472.59027304257,
+                "y": 2613.6446978023505,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519344",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Franchise accounts</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#ffffff",
+                "fillOpacity": "0.0",
+                "fontFamily": "open_sans",
+                "fontSize": "64",
+                "borderColor": "#f71963",
+                "borderWidth": "8.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "top",
+                "color": "#f71963"
+            },
+            "geometry": {
+                "width": 1439.7233170390252,
+                "height": 682.6351446358287
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1614.6297053251387,
+                "y": 2122.683257452949,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519345",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Store 2</strong></p><p><br /></p><p><strong>Logistics</strong></p><p><strong>Pricing</strong></p><p><strong>Orders</strong></p><p><strong style=\"color:rgb(128,128,128)\">Promotions (Optional)</strong></p><p><strong style=\"color:rgb(128,128,128)\">Payments (Optional)</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 385.51785392392503,
+                "height": 419.36920909231867
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1635.6992825948132,
+                "y": 2174.0402002496176,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519346",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Store N</strong></p><p><br /></p><p><strong>Logistics</strong></p><p><strong>Pricing</strong></p><p><strong>Orders</strong></p><p><strong style=\"color:rgb(128,128,128)\">Promotions (Optional)</strong></p><p><strong style=\"color:rgb(128,128,128)\">Payments (Optional)</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 385.5178539239332,
+                "height": 419.3692090923174
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 2073.1871848085343,
+                "y": 2174.0402002496176,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        },
+        {
+            "id": "3458764679101519347",
+            "type": "shape",
+            "data": {
+                "content": "<p><strong>Store 1</strong></p><p><br /></p><p><strong>Logistics</strong></p><p><strong>Pricing</strong></p><p><strong>Orders</strong></p><p><strong style=\"color:rgb(128,128,128)\">Promotions (Optional)</strong></p><p><strong style=\"color:rgb(128,128,128)\">Payments (Optional)</strong></p>",
+                "shape": "round_rectangle"
+            },
+            "style": {
+                "fillColor": "#fdd1e0",
+                "fillOpacity": "1.0",
+                "fontFamily": "open_sans",
+                "fontSize": "36",
+                "borderColor": "#f71963",
+                "borderWidth": "5.0",
+                "borderOpacity": "1.0",
+                "borderStyle": "normal",
+                "textAlign": "center",
+                "textAlignVertical": "middle",
+                "color": "#1a1a1a"
+            },
+            "geometry": {
+                "width": 385.51785392394464,
+                "height": 419.36920909231685
+            },
+            "parent": {
+                "links": {
+                    "self": "https://api.miro.com/v2/boards/uXjVH4KIP6k%3D/items/3458764679101519291"
+                },
+                "id": "3458764679101519291"
+            },
+            "position": {
+                "x": 1198.4403556328402,
+                "y": 2174.0402002496176,
+                "origin": "center",
+                "relativeTo": "parent_top_left"
+            }
+        }
+    ],
+    "connectors": [
+        {
+            "id": "3458764679100651717",
+            "captions": [
+                {
+                    "content": "<p>[entity1, entity2]</p>",
+                    "position": "46.5289%",
+                    "textAlignVertical": "middle"
+                }
+            ],
+            "isSupported": false,
+            "shape": "elbowed",
+            "style": {
+                "startStrokeCap": "none",
+                "endStrokeCap": "rounded_stealth",
+                "strokeWidth": "5.0",
+                "strokeStyle": "normal",
+                "strokeColor": "#333333",
+                "color": "#333333",
+                "textOrientation": "horizontal",
+                "fontSize": "24"
+            },
+            "type": "connector"
+        },
+        {
+            "id": "3458764679100651718",
+            "captions": [
+                {
+                    "content": "<p>[entity1, entity2]</p>",
+                    "position": "47.8933%",
+                    "textAlignVertical": "middle"
+                }
+            ],
+            "isSupported": false,
+            "shape": "elbowed",
+            "style": {
+                "startStrokeCap": "none",
+                "endStrokeCap": "rounded_stealth",
+                "strokeWidth": "5.0",
+                "strokeStyle": "normal",
+                "strokeColor": "#659df2",
+                "color": "#659df2",
+                "textOrientation": "horizontal",
+                "fontSize": "24"
+            },
+            "type": "connector"
+        },
+        {
+            "id": "3458764679100651738",
+            "captions": [
+                {
+                    "content": "<p>[entity1, entity2]</p>",
+                    "position": "46.5289%",
+                    "textAlignVertical": "middle"
+                }
+            ],
+            "isSupported": false,
+            "shape": "elbowed",
+            "style": {
+                "startStrokeCap": "none",
+                "endStrokeCap": "rounded_stealth",
+                "strokeWidth": "5.0",
+                "strokeStyle": "dotted",
+                "strokeColor": "#333333",
+                "color": "#333333",
+                "textOrientation": "horizontal",
+                "fontSize": "24"
+            },
+            "type": "connector"
+        },
+        {
+            "id": "3458764679100651739",
+            "captions": [
+                {
+                    "content": "<p>[entity1, entity2]</p>",
+                    "position": "47.8933%",
+                    "textAlignVertical": "middle"
+                }
+            ],
+            "isSupported": false,
+            "shape": "elbowed",
+            "style": {
+                "startStrokeCap": "none",
+                "endStrokeCap": "rounded_stealth",
+                "strokeWidth": "5.0",
+                "strokeStyle": "dotted",
+                "strokeColor": "#659df2",
+                "color": "#659df2",
+                "textOrientation": "horizontal",
+                "fontSize": "24"
+            },
+            "type": "connector"
+        }
+    ]
+}
