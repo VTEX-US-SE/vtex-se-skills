@@ -37,9 +37,11 @@ layout, plus per-skill versioning from gstack:
   when to use it, prerequisites, author), separate from the machine-facing `SKILL.md`.
 - `CONTRIBUTING.md` — the full format standard every skill here follows. Read it before adding or
   changing a skill.
+- `CHANGELOG.md` — dated log of what was added, changed, or removed (no repo-wide version, so
+  entries are grouped by date and cite the commit).
 
-First 4 skills migrated (02/09): `vtex-brand-guidelines`, `stakeholder-scout`, `solution-design`,
-`vams-to-miro` — all under `skills/presales/`. Tracked in Rocketlane task #43751748.
+First 3 skills migrated (02/09): `vtex-brand-guidelines`, `stakeholder-scout`, `solution-design` —
+all under `skills/presales/`. Tracked in Rocketlane task #43751748.
 
 ## Runtime support
 

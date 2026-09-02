@@ -158,6 +158,15 @@ path string, and Codex drops symlinks on install. Until that changes upstream, t
 manifest as "ships everything under `skills/`" and rely on the category README's own promote/
 absorb/deprecate status to communicate what's actually meant to be used.
 
+## CHANGELOG.md
+
+Every PR adds an entry to `CHANGELOG.md`, grouped by date (not by version — see "Versioning"
+above) and split into **Added** / **Changed** / **Removed**, citing the commit short SHA. Style is
+borrowed from gstack's changelog, but lightweight: a line or two per change, not a full essay per
+release. This is separate from the per-skill `version:` bump — bump the version when a skill's
+behavior changes materially, and log the change here regardless of whether a version bump
+happened.
+
 ## What we deliberately did not copy from mattpocock
 
 - **Repo-wide semver / Changesets** — see "Versioning" above.
