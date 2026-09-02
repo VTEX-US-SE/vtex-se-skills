@@ -1,0 +1,6 @@
+{
+  "name": "vtex-se-skills",
+  "description": "Skills built by the VTEX Solution Engineering team, for Gemini. Under construction, not curated yet.",
+  "version": "0.1.0",
+  "contextFileName": "GEMINI.md"
+}

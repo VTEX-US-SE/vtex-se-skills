@@ -1,0 +1,16 @@
+{
+  "name": "vtex-se-skills",
+  "version": "0.1.0",
+  "description": "Skills built by the VTEX Solution Engineering team, for Codex. Under construction, not curated yet.",
+  "author": {
+    "name": "VTEX Solution Engineering"
+  },
+  "homepage": "https://github.com/VTEX-US-SE/vtex-se-skills",
+  "repository": "https://github.com/VTEX-US-SE/vtex-se-skills",
+  "keywords": [
+    "vtex",
+    "solution-engineering",
+    "skills"
+  ],
+  "skills": "./skills/"
+}

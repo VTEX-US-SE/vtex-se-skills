@@ -12,22 +12,33 @@ standardized against each other. Don't assume quality, active maintenance, or th
 out of the box as-is. Deciding promote / absorb / deprecate for each one, item by item, is still
 in progress.
 
-## Structure (planned)
+## Structure
 
-Following the pattern of [gstack](https://github.com/garrytan/gstack),
+Adapted from [gstack](https://github.com/garrytan/gstack),
 [superpowers](https://github.com/obra/superpowers), and
-[mattpocock/skills](https://github.com/mattpocock/skills):
+[mattpocock/skills](https://github.com/mattpocock/skills) — mostly following mattpocock's
+layout, plus per-skill versioning from gstack:
 
-- `AGENTS.md` / `CLAUDE.md` — same content, so Claude Code, Gemini, and other agent runtimes all
-  pick up the same rules.
-- `CONTEXT.md` — VTEX-specific vocabulary (SE, RFP, Rocketlane, Atlas, FastStore, and so on).
-- `skills/<category>/<skill-name>/SKILL.md` — one folder per skill, grouped by category:
-  - `skills/presales/`
-  - `skills/governance/`
-  - `skills/in-progress/`
-  - `skills/deprecated/`
+- `AGENTS.md` / `CLAUDE.md` — same content, so Claude Code and other agent runtimes pick up the
+  same rules. `GEMINI.md` imports `AGENTS.md` for Gemini.
+- `CONTEXT.md` — VTEX-specific vocabulary (SE, Rocketlane, Atlas, FastStore, and so on).
+- `.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/`, `gemini-extension.json` — plugin
+  manifests so this repo can be installed directly in each runtime.
+- `skills/<category>/<skill-name>/SKILL.md` — one folder per skill, grouped by category. Each
+  skill's own `SKILL.md` carries its own `version:` field in the frontmatter (skills evolve
+  independently via PR, not on a shared repo-wide version). Categories:
+  - `skills/presales/` — solution design, demo building, and other customer-facing prep. RFP
+    response is out of scope here, handled separately together with Atlas.
+  - `skills/governance/` — reporting, health checks, and internal process tooling.
+  - `skills/in-progress/` — being built or actively reworked.
+  - `skills/deprecated/` — replaced or absorbed, kept for history.
 
-None of this is populated yet. Tracked in Rocketlane task #43751748.
+No skill has been migrated in yet. Tracked in Rocketlane task #43751748.
+
+## Contributing
+
+Anyone on the SE team can open a PR adding or adjusting a skill. Djan Magno and Noé Eustaquio
+review and merge.
 
 ## Contact
 

@@ -1,0 +1,17 @@
+{
+  "name": "vtex-se-skills",
+  "displayName": "VTEX SE Skills",
+  "description": "Skills built by the VTEX Solution Engineering team, for Cursor. Under construction, not curated yet.",
+  "version": "0.1.0",
+  "author": {
+    "name": "VTEX Solution Engineering"
+  },
+  "homepage": "https://github.com/VTEX-US-SE/vtex-se-skills",
+  "repository": "https://github.com/VTEX-US-SE/vtex-se-skills",
+  "keywords": [
+    "vtex",
+    "solution-engineering",
+    "skills"
+  ],
+  "skills": "./skills/"
+}
