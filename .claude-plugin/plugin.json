@@ -15,7 +15,6 @@
   "skills": [
     "./skills/presales/vtex-brand-guidelines",
     "./skills/presales/stakeholder-scout",
-    "./skills/presales/solution-design",
-    "./skills/presales/vams-to-miro"
+    "./skills/presales/solution-design"
   ]
 }

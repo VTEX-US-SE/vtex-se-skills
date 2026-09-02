@@ -55,6 +55,21 @@ vtex-se-skills/
 7. **Update `.claude-plugin/plugin.json`**'s `skills` array explicitly — see "Plugin manifests"
    below. Don't rely on a wildcard path.
 
+## Hard dependencies on externally-maintained skills
+
+Sometimes a skill you're migrating depends on another skill that isn't ours to own — it's actively
+maintained and distributed by someone outside this repo's process, especially if its output feeds a
+production system. `solution-design`'s dependency on `vams-to-miro` (Miguel Carrera, distributed
+via `#ai-committee`, whose output is ingested into Atlas's knowledge base) is the precedent: we
+looked at vendoring a copy here and decided against it, precisely because it would create a second,
+driftable copy of something with downstream production impact — exactly the anti-pattern described
+above.
+
+**Don't vendor it.** Document it in the dependent skill's `docs/<category>/<skill-name>.md` as an
+external prerequisite: who maintains it, where to get it, and why it isn't bundled here. If the
+external maintainer later wants this repo to become the canonical home for their skill, that's
+their call to make, not something to default into by copying a zip.
+
 ## Versioning — deliberately not mattpocock's approach
 
 Mattpocock versions the **whole repo** as one npm package (`package.json` + `.claude-plugin/`

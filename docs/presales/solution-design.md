@@ -24,6 +24,11 @@ separate skill/workflow.
 - **VTEX Developer MCP** — required. The whole point of this skill is grounding every section in
   real documentation, not general web search.
 - **`vams-to-miro`** — used specifically for the final, consolidated project architecture diagram.
+  **External prerequisite, not bundled in this repo.** It's Miguel Carrera's skill, distributed
+  through `#ai-committee`, actively maintained there and used as a real input source into Atlas's
+  knowledge-base ingestion pipeline — vendoring a copy here would create a second, driftable source
+  of something with downstream production impact. Install it from Miguel's distribution, not from
+  here.
 - **Miro MCP** — required for that diagram, via `vams-to-miro`.
 - **Google Drive connector** — for reading RFP/Q&A source files and maintaining the decision log
   and deliverables folder.
