@@ -119,7 +119,9 @@ After granting them, **quit that app completely and reopen it**. Permissions don
 already-running app.
 
 Screen capture also needs the **Claude in Chrome** extension connected, which the agent uses to
-navigate the demo store.
+navigate the demo store. A few VTEX Admin screens ignore automated clicks; for those, the agent
+uses **GPT computer-use** (for example in Codex), which clicks through macOS accessibility and
+needs the same two permissions. If neither is available, the agent asks you to do that one click.
 
 ## Using it
 
@@ -186,7 +188,7 @@ maintainers. Don't retry in a loop.
 | The final video plays but freezes or skips when you seek | A clip with a different `time_base` was concatenated. `assemble.py` catches this; for manual edits, see `references/video-editing.md`. |
 | Screen capture fails with the same error every time | The app wasn't restarted after granting Screen Recording/Accessibility. Quit it fully and reopen. |
 | The capture shows the wrong tab or a black frame | The agent raises the matching tab first. Make sure the URL substring it uses is unique, and that the page finished loading. |
-| A click in the VTEX Admin does nothing | Some Admin components ignore automated clicks. The agent will ask you to click that one element. |
+| A click in the VTEX Admin does nothing | Some Admin components ignore DOM clicks. The agent retries that step with GPT computer-use, or asks you to click that one element. |
 | Chrome shows a "started debugging this browser" bar | Normal while the extension is attached. It's cropped out of the stills. |
 | Drive download fails for a big video | The Drive connector refuses files over 10 MB. The agent downloads through Chrome instead. |
 
@@ -199,6 +201,7 @@ maintainers. Don't retry in a loop.
 | `references/` | Deep detail per stage: transcription, voice, video editing, slides, recording, assembly, from-scratch flow, folder conventions |
 | `templates/production-script-template.md` | The script format for from-scratch videos |
 | `templates/slides.example.json` | Slide spec example (opening, capability grid, split, closing) |
+| `templates/recording-task-template.md` | Step-by-step action list for capturing live-demo segments |
 | `templates/assembly-plan.example.json` | Assembly plan example |
 | `assets/vtex-brand/` | Official VTEX color tokens and logo. The font lives on your machine (Setup step 4) |
 | `.env.example` | The key names. Copy it to `~/.config/vtex-se-skills/.env` |

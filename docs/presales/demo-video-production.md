@@ -49,7 +49,9 @@ slides, or producing a new 2-10 minute video. It is **user-invoked only**
   Helvetica and print a warning.
 - **Hyperframes:** an external npm package (`npx hyperframes`, Apache 2.0) with telemetry disabled.
   Not bundled.
-- **Claude in Chrome:** used for navigation during demo capture and for large Drive downloads.
+- **Claude in Chrome:** drives the browser during demo capture and handles large Drive downloads.
+- **GPT computer-use** (optional, e.g. in Codex): OS-level clicks for the few VTEX Admin screens
+  that ignore DOM-dispatched clicks. If it's unavailable, a human does that one click.
 - **macOS:** needed only for demo-still capture (`screencapture` + AppleScript, with Screen
   Recording and Accessibility permissions). Transcription, voice, slides and assembly work on any
   OS and any runtime, so the capture step is Claude Code on a Mac only.
@@ -64,7 +66,7 @@ slides, or producing a new 2-10 minute video. It is **user-invoked only**
 | `references/voice.md` | Choosing S2S vs. hybrid vs. TTS, validated voices, credits, audio concat rules |
 | `references/video-editing.md` | Keyframe cut + lossless concat recipes, `time_base` bug, watermark badge |
 | `references/slides.md` | VTEX brand rules, `slides.json` types, static PNG vs. Hyperframes |
-| `references/recording.md` | Never-confirm rule, stills capture, macOS permissions, click fallbacks |
+| `references/recording.md` | Never-confirm rule, driving the browser (claude-in-chrome / GPT computer-use), stills capture, macOS permissions |
 | `references/assembly.md` | Normalization target, `assemble.py`, QA checklist, delivery |
 | `references/from-scratch-flow.md` | Research sources and hierarchy, script rules, structure from 8 real videos |
 | `references/folder-conventions.md` | Per-video folder layout and file naming |

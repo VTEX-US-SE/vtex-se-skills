@@ -27,7 +27,8 @@ bot-driven recording looks wrong on camera (no cursor dwell, no reading pauses) 
 gotchas below.
 
 Tools:
-- **Navigation/clicks:** `claude-in-chrome` (DOM-level) on the real site.
+- **Navigation/clicks:** `claude-in-chrome` (DOM-level) by default; GPT computer-use (OS-level
+  clicks) for the screens that ignore DOM clicks. See "Driving the browser" below.
 - **Capture:** `scripts/capture_chrome_window.sh <url-substring> demos/<segment>/<nn>_<state>.png`.
   It brings the matching tab to the front and runs `screencapture -R` on **that window's region
   only**.
@@ -91,12 +92,73 @@ and target the display Chrome actually sits on).
 - Takes from different sessions can differ in content, not just codec: verify it's the same
   data before joining them.
 
-## When a click doesn't register
+## Driving the browser
 
-Some VTEX Admin components (Styleguide tables, some agent chat buttons) ignore CDP/DOM-dispatched
-clicks. An OS-level accessibility click works (for example Orca's `orca computer click`, or any
-computer-use tool). Otherwise, ask the human to click that one element, give them the exact
-URL + element, and wait for a DOM condition.
+Two automation surfaces, and they are **not interchangeable**:
+
+| Surface | What it is | Use it for |
+|---|---|---|
+| **`claude-in-chrome`** (default) | Claude's Chrome extension, DOM-level: navigate, find elements, click, type, read the page | Storefronts, checkout, most Admin screens |
+| **GPT computer-use** (OpenAI's computer-use tool, e.g. in Codex) | Real OS-level mouse/keyboard input through macOS accessibility | Screens that silently ignore DOM clicks |
+
+### Before the first action
+
+1. Write the segment's action list into `RECORDING_TASK.md` (`templates/recording-task-template.md`)
+   **before** touching the browser: start URL, each click/type with the exact label, the stop
+   point, and which still to capture after which step.
+2. Walk it once **without capturing** (an exploration pass) and correct the list with what the
+   real screen shows: labels, how many clicks a tree needs, what data already exists. Screens drift
+   from the script more often than not.
+3. Park the browser on a neutral start state (e.g. `<account>.myvtex.com/admin` home, or the
+   storefront home) so every take starts from the same place.
+
+### With `claude-in-chrome`
+
+- Load all the tools you'll need in **one** tool search: `tabs_context_mcp`, `tabs_create_mcp`,
+  `navigate`, `find`, `computer`, `read_page`, plus `form_input` / `get_page_text` if needed.
+- Call `tabs_context_mcp` first, then **open a new tab** with `tabs_create_mcp`. Never drive a tab
+  the user already had open, and never reuse tab ids from another session.
+- Locate elements with `find` / `read_page` by their visible label, then click the element found.
+  Don't click at guessed coordinates; a coordinate click can "succeed" and miss.
+- After each action, **verify the screen changed** (new URL, new element, updated cart), not just
+  that the call returned. Wait for hydration (skeleton loaders gone) before the next step.
+- **Never trigger a browser dialog** (`alert`/`confirm`, "are you sure?" delete buttons): it blocks
+  the extension until a human dismisses it. If a step needs one, stop and ask.
+- Typing into plain inputs (search boxes, chat inputs) works reliably. Failures are specific to
+  some custom buttons and table rows.
+
+### Switch to GPT computer-use when a click doesn't register
+
+Known cases: `contracts-management`'s Styleguide table rows and expand chevrons, and the Contract
+Manager Agent's suggestion buttons. The click "succeeds" but nothing changes: the component
+rejects the synthetic event. Rule of thumb: **try `claude-in-chrome` first; if nothing visibly
+changed after 2 tries, do that step with computer-use.**
+
+- Hand the computer-use agent the exact step from `RECORDING_TASK.md` (URL, visible label, what
+  the screen should show afterwards), plus the hard rule: never click
+  Save/Confirm/Execute/Place order.
+- It clicks through macOS accessibility, so the same Screen Recording + Accessibility permissions
+  apply to the app running it. The Chrome window must be visible (not minimized).
+- Let it do **only the clicks**. The coordinating session keeps ownership of any capture process
+  and of `capture_chrome_window.sh` (worker sandboxes kill their child processes).
+- Proven case: computer-use drove the Contract Manager Agent end to end (opened the contract,
+  clicked "Add assortments", answered the agent's two clarifying questions, and stopped at "shall I
+  proceed?") after DOM clicks had failed on the same buttons.
+
+### Last resort: a human click
+
+If neither surface can do it, give the person the exact URL and element label, then wait for a
+confirmed DOM condition (e.g. `find` returns the next screen's element) instead of polling
+screenshots. Record that stretch continuously and cut the wait out afterwards.
+
+### Demo data
+
+- Check live which data is already in the account before choosing values. Pick a combination that
+  isn't there yet (e.g. an assortment not yet linked to the contract), and note the "already used"
+  values in `RECORDING_TASK.md` so re-takes don't collide.
+- Don't touch another segment's login session or cart unless that segment's instructions say so.
+- Intermittently blank Admin screens (sidebar only) are usually a flaky demo account: reload once
+  or twice, wait a few seconds, then escalate.
 
 ## Tools evaluated and not adopted
 

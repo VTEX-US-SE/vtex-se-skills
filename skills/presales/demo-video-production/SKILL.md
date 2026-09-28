@@ -87,9 +87,12 @@ detail in `<skill>/references/`, starting files in `<skill>/templates/`.
 4. **Slides.** Copy `templates/slides.example.json` to `slides.json`, pointing each slide's
    `audio` at its WAV. Hyperframes is the default; static PNG is fine for simple slides.
    → `references/slides.md`
-5. **Demo stills.** Navigate with `claude-in-chrome` and capture with
-   `scripts/capture_chrome_window.sh`. Then crop, pad and hold each still for its share of the
-   narration. macOS only; needs Screen Recording + Accessibility. → `references/recording.md`
+5. **Demo stills.** Copy `templates/recording-task-template.md` to `RECORDING_TASK.md` and write
+   each live segment's action list. Do one exploration pass without capturing and correct the list.
+   Then drive the browser with `claude-in-chrome`, switching to GPT computer-use for the clicks the
+   DOM ignores, and capture each state with `scripts/capture_chrome_window.sh`. Crop, pad and hold
+   each still for its share of the narration. macOS only; needs Screen Recording + Accessibility.
+   → `references/recording.md`
 6. **Assemble.** Write `plan.json` (`templates/assembly-plan.example.json`), then run
    `python3 <skill>/scripts/assemble.py plan.json --out final/<slug>_FINAL_v1.mp4`.
    → `references/assembly.md`
