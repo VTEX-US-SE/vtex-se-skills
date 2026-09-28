@@ -1,0 +1,8 @@
+{
+  "segments": [
+    {"video": "hyperframes-project/renders/seg0_hook_norm.mp4",             "audio": "audio/seg0_hook.wav"},
+    {"video": "hyperframes-project/renders/seg0-5_capability-map_norm.mp4", "audio": "audio/seg0-5_capability-map.wav"},
+    {"video": "final/seg1_contracts_stills.mp4",                            "audio": "audio/seg1_contracts.wav"},
+    {"video": "hyperframes-project/renders/seg_closing-cta_norm.mp4",       "audio": "audio/seg_closing-cta.wav"}
+  ]
+}

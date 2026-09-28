@@ -1,0 +1,15 @@
+# Never commit credentials. Skills read keys from the environment or ~/.config/vtex-se-skills/.env
+.env
+.env.*
+!.env.example
+
+__pycache__/
+*.pyc
+.DS_Store
+
+# Proprietary VTEX Trust font files: users keep them locally, never in this public repo
+skills/presales/demo-video-production/assets/vtex-brand/fonts/
+*.otf
+*.ttf
+*.woff
+*.woff2

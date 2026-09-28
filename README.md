@@ -41,7 +41,9 @@ layout, plus per-skill versioning from gstack:
   entries are grouped by date and cite the commit).
 
 First 3 skills migrated (02/09): `vtex-brand-guidelines`, `stakeholder-scout`, `solution-design` —
-all under `skills/presales/`. Tracked in Rocketlane task #43751748.
+all under `skills/presales/`. Tracked in Rocketlane task #43751748. Added 28/09:
+`demo-video-production` (Djan Magno + Noé Eustaquio), the first user-invoked skill, which comes
+with its own new-user guide (`skills/presales/demo-video-production/README.md`).
 
 ## Runtime support
 

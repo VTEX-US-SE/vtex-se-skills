@@ -3,6 +3,30 @@
 This repo doesn't version as a whole (see `CONTRIBUTING.md` — versioning is per skill, not per
 repo), so entries here are grouped by date and cite the commit, not a release tag.
 
+## 2026-09-28
+
+### Added
+
+- **`demo-video-production`** (Djan Magno, Noé Eustaquio): `v1.0.0`, under `skills/presales/`. It
+  is the first **user-invoked** skill (`disable-model-invocation: true`, because it spends
+  ElevenLabs/RunPod credits).
+  - Packages the team's demo-video pipeline in two modes: re-editing an existing recording, and
+    building a video from scratch.
+  - Ships its own new-user `README.md` (setup, keys, costs, troubleshooting) alongside
+    `docs/presales/demo-video-production.md`.
+  - Scripts were adapted to load keys from the environment or `~/.config/vtex-se-skills/.env`, and
+    new ones were added: `speech_to_speech.py`, `build_slides.py`, `assemble.py`,
+    `capture_chrome_window.sh`, `check_setup.sh`.
+
+  (`5ea5224`)
+- **Root `.gitignore`**: blocks `.env` files and Python caches, so nobody can commit a key by
+  accident. (`5ea5224`)
+
+### Changed
+
+- **`skills/presales/README.md`** now has separate **User-invoked** / **Model-invoked** sections,
+  per `CONTRIBUTING.md`, since the category contains both kinds. (`5ea5224`)
+
 ## 2026-09-02
 
 ### Added

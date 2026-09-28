@@ -1,0 +1,47 @@
+{
+  "mode": "hyperframes",
+  "slides": [
+    {
+      "id": "seg0_hook",
+      "type": "opening",
+      "audio": "audio/seg0_hook.wav",
+      "kicker": "Live solution demo",
+      "title": "B2B Commerce",
+      "subtitle": "Every buyer, every contract, one storefront."
+    },
+    {
+      "id": "seg0-5_capability-map",
+      "type": "grid",
+      "duration": 14.5,
+      "kicker": "What you'll see live",
+      "title": "Three capabilities, proven on a real account",
+      "blocks": [
+        ["01", "Contracts", "Negotiated prices and assortments per buyer organization."],
+        ["02", "Budgets", "Spending limits and approval policies set by the buyer."],
+        ["03", "Smart checkout", "Cost centers and freight options at checkout."]
+      ],
+      "proof_line": "Running today for global distributors."
+    },
+    {
+      "id": "seg-split",
+      "type": "split",
+      "duration": 12,
+      "kicker": "Two sides, one platform",
+      "title": "What each side gets",
+      "columns": [
+        {"label": "Seller", "items": ["One catalog", "Contract pricing"]},
+        {"label": "Buyer", "items": ["Self-service portal", "Budget control"]}
+      ]
+    },
+    {
+      "id": "seg_closing-cta",
+      "type": "closing",
+      "audio": "audio/seg_closing-cta.wav",
+      "kicker": "Proven live, today",
+      "title": "One storefront for every buyer",
+      "recap": "Contracts, budgets and checkout rules, configured in VTEX and shown live.",
+      "cta": "Ready to see it on your own catalog?",
+      "cta_url": "dev.vtex.com/en-us/get-started/"
+    }
+  ]
+}
