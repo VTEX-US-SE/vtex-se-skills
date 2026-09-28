@@ -18,14 +18,14 @@ repo), so entries here are grouped by date and cite the commit, not a release ta
     new ones were added: `speech_to_speech.py`, `build_slides.py`, `assemble.py`,
     `capture_chrome_window.sh`, `check_setup.sh`.
 
-  (`5ea5224`)
+  (`89be60a`)
 - **Root `.gitignore`**: blocks `.env` files and Python caches, so nobody can commit a key by
-  accident. (`5ea5224`)
+  accident. (`89be60a`)
 
 ### Changed
 
 - **`skills/presales/README.md`** now has separate **User-invoked** / **Model-invoked** sections,
-  per `CONTRIBUTING.md`, since the category contains both kinds. (`5ea5224`)
+  per `CONTRIBUTING.md`, since the category contains both kinds. (`89be60a`)
 
 ## 2026-09-02
 
