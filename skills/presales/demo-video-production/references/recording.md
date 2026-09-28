@@ -57,6 +57,9 @@ Slack DM preview. The helper never captures full screen; keep it that way.
   (`tell application "Google Chrome" to make new window with properties {mode:"incognito"}`)
   instead of fighting a session cookie that the in-app "Logout" doesn't clear.
 - Close system dialogs (sleep warnings, update prompts) before the shot.
+- Record in a **clean Chrome profile** (no bookmarks bar, only the demo tabs open). The window
+  capture includes the tab strip and bookmarks bar, so personal tabs and bookmark names land in
+  the raw still until they're cropped out.
 - Crop out browser chrome per still (tab strip, address bar, and the
   `"Claude" started debugging this browser` infobar when present). The crop offset varies still
   to still, so inspect each image. Keep the site's own promo banners; they're real page content.

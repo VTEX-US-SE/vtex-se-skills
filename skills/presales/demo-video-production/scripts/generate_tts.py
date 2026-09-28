@@ -116,6 +116,13 @@ def check_remaining_credits(api_key: str) -> dict | None:
     try:
         with request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
+    except error.HTTPError as e:
+        if e.code == 401:
+            print("[info] Credit balance not readable with this key (it has no user_read permission, "
+                  "by design). Skipping the pre-check; real calls still stop loudly if credits run out.")
+        else:
+            print(f"[WARN] Could not check ElevenLabs remaining credits: {e}")
+        return None
     except Exception as e:  # noqa: BLE001 - advisory check, never fatal
         print(f"[WARN] Could not check ElevenLabs remaining credits: {e}")
         return None

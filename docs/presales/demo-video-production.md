@@ -87,15 +87,19 @@ Changes made while packaging it:
 
 ## Common questions
 
-**What has been verified end to end in this packaged form, and what hasn't?**
+**What has been verified end to end in this packaged form?**
 
-Tested on 2026-09-28, spending no credits:
-- PNG and Hyperframes slide builds;
-- clip normalization;
-- `assemble.py`, including its `time_base` guard, which rejected a real `1/15360` clip;
-- the dry runs of both paid scripts;
-- key loading from `~/.config`.
+Everything, on 2026-09-28, with the team keys:
+- **Paid calls:** a 10 s RunPod transcription (15 s wall clock, word timestamps returned) and a 30 s
+  ElevenLabs Speech-to-Speech preview (8 s, zero drift, content preserved when transcribed back).
+- **Two-segment TTS narration**, then Hyperframes slides sized from those WAVs, then
+  `assemble.py`. The final file is seekable, and every piece has `time_base` 1/90000.
+- **`capture_chrome_window.sh`** on a public VTEX page: captured the window region only.
+- **Free checks:** PNG slides, the `time_base` guard (rejected a real `1/15360` clip), dry runs,
+  and key loading from `~/.config` and from a parent `.env`.
 
-Not yet run for real: a paid `speech_to_speech.py` call (new script; the request shape follows
-ElevenLabs' API reference) and `capture_chrome_window.sh` (it needs the macOS permissions). Treat
-the first run of each as a test: use `--preview 30`, and capture a harmless tab.
+**Why does the credit/balance pre-check say it can't read the balance?**
+
+Both team keys are scoped on purpose. The ElevenLabs key has no `user_read` permission, and the
+RunPod key is restricted to the transcription endpoint. The scripts skip the pre-check with an
+`[info]` line. Real calls still stop with `[CREDITS EXHAUSTED]` if credits run out.

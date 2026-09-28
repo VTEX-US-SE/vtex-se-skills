@@ -70,9 +70,15 @@ def check_balance(api_key: str) -> dict | None:
     try:
         with request.urlopen(req, timeout=30) as resp:
             data = json.loads(resp.read().decode())
+    except error.HTTPError as e:
+        if e.code in (401, 403):
+            print("[info] Account balance not readable with this key (it's restricted to the "
+                  "transcription endpoint, by design). Skipping the pre-check.")
+        else:
+            print(f"[WARN] Could not check RunPod balance: {e}")
+        return None
     except Exception as e:  # noqa: BLE001 - advisory check, never fatal
-        print(f"[WARN] Could not check RunPod balance: {e} (may just mean this key is "
-              "endpoint-restricted, not account-scoped — not necessarily a problem)")
+        print(f"[WARN] Could not check RunPod balance: {e}")
         return None
     balance = data.get("data", {}).get("myself", {}).get("clientBalance")
     if balance is None:

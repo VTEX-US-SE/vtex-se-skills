@@ -183,7 +183,7 @@ maintainers. Don't retry in a loop.
 | Symptom | Fix |
 |---|---|
 | `ELEVENLABS_API_KEY is not set` | The key file is missing or in the wrong place. Re-do Setup step 3 and run `check_setup.sh`. |
-| `--check-credits` / `--check-balance` return 401 | Expected: the team keys are deliberately scoped to do only the pipeline's calls. Real runs still work. |
+| `[info] ... balance not readable with this key` | Expected: the team keys are deliberately scoped to the pipeline's calls only. Real runs still work. |
 | RunPod `exceeded max body size of 10MiB` | Audio too long for one request. Use 64 kbps mono MP3 and split into ≤10 min chunks. |
 | The final video plays but freezes or skips when you seek | A clip with a different `time_base` was concatenated. `assemble.py` catches this; for manual edits, see `references/video-editing.md`. |
 | Screen capture fails with the same error every time | The app wasn't restarted after granting Screen Recording/Accessibility. Quit it fully and reopen. |
