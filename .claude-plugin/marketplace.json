@@ -1,0 +1,16 @@
+{
+  "name": "vtex-se-skills",
+  "owner": {
+    "name": "VTEX Solution Engineering"
+  },
+  "metadata": {
+    "description": "Skills built by the VTEX Solution Engineering team."
+  },
+  "plugins": [
+    {
+      "name": "vtex-se-skills",
+      "source": "./",
+      "description": "RFP response, solution design, stakeholder mapping, demo videos and VTEX brand guidelines for the SE team."
+    }
+  ]
+}
