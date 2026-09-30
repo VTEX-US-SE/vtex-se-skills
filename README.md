@@ -28,8 +28,8 @@ layout, plus per-skill versioning from gstack:
 - `skills/<category>/<skill-name>/SKILL.md` — one folder per skill, grouped by category. Each
   skill's own `SKILL.md` carries its own `version:` field in the frontmatter (skills evolve
   independently via PR, not on a shared repo-wide version). Categories:
-  - `skills/presales/` — solution design, demo building, and other customer-facing prep. RFP
-    response is out of scope here, handled separately together with Atlas.
+  - `skills/presales/` — RFP response, solution design, demo building, and other
+    customer-facing prep.
   - `skills/governance/` — reporting, health checks, and internal process tooling.
   - `skills/in-progress/` — being built or actively reworked.
   - `skills/deprecated/` — replaced or absorbed, kept for history.
@@ -43,7 +43,9 @@ layout, plus per-skill versioning from gstack:
 First 3 skills migrated (02/09): `vtex-brand-guidelines`, `stakeholder-scout`, `solution-design` —
 all under `skills/presales/`. Tracked in Rocketlane task #43751748. Added 28/09:
 `demo-video-production` (Djan Magno + Noé Eustaquio), the first user-invoked skill, which comes
-with its own new-user guide (`skills/presales/demo-video-production/README.md`).
+with its own new-user guide (`skills/presales/demo-video-production/README.md`). Added 30/09:
+`vtex-rfp` (Djan Magno), the RFP/RFI response skill, which reverses the earlier "RFP is out of
+scope here" note.
 
 ## Runtime support
 
