@@ -52,6 +52,7 @@ Google Sheets or Excel, or both.
 |---|---|
 | `templates/rfp.config.example.json` | Per-RFP config: the client's coverage scale mapped to roles, field names, row-ID pattern, locale, extra patterns in the client's language, the confirmed architecture, and the write-back column mapping |
 | `scripts/corpus.py` + `scope_guard.py` | Local copy of the cited VTEX pages; refuses hidden, unpublished and legacy / out-of-scope pages |
+| `scripts/known_issues.py` | Searches VTEX's published Known Issues for a capability (fresh copy, open issues only) before a row claims it |
 | `scripts/derive_evidence.py` | Derives each row's evidence URL from the page containing its quote |
 | `scripts/validate_draft.py` | The main gate before anything reaches the client's file |
 | `scripts/gap_scope.py` | Stops a gap from spreading across capabilities |

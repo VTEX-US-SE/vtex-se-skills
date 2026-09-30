@@ -40,6 +40,13 @@ repo), so entries here are grouped by date and cite the commit, not a release ta
   - A Trust Center gate for certification rows.
   - `edit_row.py`, for reviewing in chat. The SE is always asked where they want to review. (803cabe)
 
+- **`vtex-rfp` `v1.15.0`**:
+  - A Known Issues check (`known_issues.py`) with a gate: a `No Fix` issue becomes a caveat in the answer, and
+    an open one goes to the SE.
+  - A native-first architecture proposal with a fixed shape.
+  - SE queue items in plain language.
+  - An executive summary structure. (42deccc)
+
 ### Changed
 
 - **`README.md`, `skills/presales/README.md`**: RFP response is no longer listed as out of scope for
