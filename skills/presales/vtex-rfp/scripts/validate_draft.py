@@ -20,7 +20,7 @@ import re
 import sys
 from urllib.parse import urlparse
 
-from _common import load_config, load_manifest, load_registry, load_rows, norm, union
+from _common import LINE_CLASSES, OWNERS, load_config, load_manifest, load_registry, load_rows, norm, union
 
 CAVEAT_OK = {'yes', 'n/a', 'unchecked'}      # 'no' means the invariant was violated
 NOT_DELIVERABLE = 'not-deliverable'
@@ -62,6 +62,19 @@ COST_DISCLOSED = [r'additional cost', r'extra cost', r'separate(?:ly)?\s+licen[c
                   r'licen[cs]ed\s+separately', r'paid\s+(?:add-?on|product)', r'priced\s+separately',
                   r'\bbilled\b', r'separate\s+VTEX\s+product', r'own\s+commercial\s+terms']
 
+# A1: line_class and owner are read off the answer, not set beside it. Motivating case: a
+# Business Impact Analysis row came back `platform` / VTEX while its own text said the integrator
+# builds it. These phrases are what the prose says when someone other than VTEX does the work.
+BUILT_BY_OTHERS = [
+    r'\b(?:integrator|system integrator|SI|implementation partner|partner)\b[^.]{0,40}?\b(?:builds?|develops?|implements?|creates?|delivers?)\b',
+    r'\b(?:built|developed|implemented|delivered|created)\s+by\s+(?:the\s+|an?\s+)?(?:integrator|SI|implementation partner|partner|client|customer)',
+    r'\bcustom\s+(?:development|app|application|integration|build)\b',
+    r'\brequires?\s+(?:a\s+|some\s+)?(?:custom|bespoke)\b',
+]
+CLIENT_DOES = re.compile(r"\b(?:the\s+)?(?:client|customer)(?:'s)?\s+(?:\w+\s+){0,2}(?:provides?|maintains?|owns?|operates?|builds?|sends?|hosts?)\b", re.I)
+# Custom rows stay in business language (SKILL.md, technical depth). Warn on the measurable proxy.
+IMPLEMENTATION_DETAIL = re.compile(r'(?:/api/[\w/{}.-]+|\b(?:GET|POST|PUT|PATCH|DELETE)\s+/|(?m:^\s*\d+[.)]\s)|\bstep\s+\d)', re.I)
+
 POLARITY_NEG = re.compile(r'\bis not a VTEX feature\b|\bnot a VTEX\b|VTEX (?:does not|doesn\'t) '
                           r'(?:provide|support|offer|host)|\bno native\b', re.I)
 POLARITY_POS = re.compile(r'VTEX (?:does )?(?:support|provide|publish|host)s?\b'
@@ -95,6 +108,7 @@ def check(rows, cfg, manifest, registry):
     cost = union(COST_DISCLOSED + (cfg.get('extra_cost_disclosure') or []))
     arch = cfg.get('architecture') or {}
     arch_forbidden = union(arch.get('forbidden_terms') or [])
+    built_by_others = union(BUILT_BY_OTHERS + (cfg.get('extra_builder_phrases') or []))
 
     verdicts = collections.defaultdict(set)
     classes = collections.defaultdict(set)
@@ -125,6 +139,35 @@ def check(rows, cfg, manifest, registry):
             E('partial coverage with no gap described')
         if role == 'clarification' and not norm(r.text('assumptions')):
             E('clarification requested but no question in the assumptions field')
+        # --- A1: who does the work, read off the answer ---
+        client_prose = r.client_text()
+        if role in ('full', 'partial', 'none') and klass not in LINE_CLASSES:
+            E(f'line_class {klass!r} is missing or invalid ({" | ".join(sorted(LINE_CLASSES))}). '
+              'Set it AFTER writing the answer, from what the answer says')
+        if klass == 'shared':
+            owners = r.raw.get('owners') or []
+            unknown = [o for o in owners if o not in OWNERS]
+            if unknown or len(set(owners)) < 2:
+                E(f"line_class 'shared' needs an 'owners' list with at least two of {list(OWNERS)} (got {owners!r})")
+        elif r.raw.get('owners') and klass in LINE_CLASSES and sorted(r.raw['owners']) != sorted(r.owners()):
+            E(f"owners {r.raw['owners']!r} contradict line_class {klass!r} (which means {r.owners()!r})")
+        m = built_by_others.search(client_prose)
+        if klass == 'platform' and m:
+            E(f"line_class 'platform' but the answer says someone else does the work ({m.group(0)!r}). "
+              "Derive the class from the answer: 'integrator-build', or 'shared' with owners")
+        if klass == 'platform':
+            m = CLIENT_DOES.search(client_prose)
+            if m:
+                W(f"line_class 'platform' but the answer gives the client a part ({m.group(0)!r}); "
+                  "consider 'shared' with owners")
+        if klass in ('integrator-build', 'shared') and role != 'none':
+            if klass == 'integrator-build' and not built_by_others.search(client_prose):
+                W('integrator-build row whose answer never says who builds it. Silence reads as native')
+            m = IMPLEMENTATION_DETAIL.search(client_prose)
+            if m:
+                W(f'custom work described as implementation detail ({m.group(0).strip()!r}). '
+                  'Custom rows stay in business language')
+
         if role == 'none' and klass != NOT_DELIVERABLE:
             E(f"'none' coverage with line_class {klass!r}. None is for a capability with no path at "
               f"all; declare line_class '{NOT_DELIVERABLE}', or use partial and name who builds it")

@@ -19,7 +19,8 @@ Mapping comes from rfp.config.json, `write_back`:
       "header_row": 1,
       "key_column": "A",                // column whose cell holds the row ID (fields.id)
       "columns": {                      // draft field (logical name or raw key) -> column letter
-        "coverage": "H", "response": "I", "evidence_url": "J"
+        "coverage": "H", "response": "I", "evidence_url": "J",
+        "owner": "K"                    // derived from line_class (and `owners` on shared rows)
       },
       "new_headers": {"I": "Response detail", "J": "Reference"}   // optional
     }
@@ -180,6 +181,8 @@ def main(argv=None):
             continue
         for field, col in columns.items():
             val = r.raw.get(cfg['fields'].get(field, field))
+            if field == 'owner' and not val:
+                val = r.owner_label()          # derived from line_class / owners, never typed
             if isinstance(val, list):
                 val = '\n'.join(map(str, val))
             if val in (None, ''):

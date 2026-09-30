@@ -5,7 +5,7 @@ description: >-
   documentation, with a source URL per factual claim and a coverage value scored
   on the client's matrix. Use when the user pastes RFP requirements, a security
   questionnaire, or a requirements matrix.
-version: 1.12.0
+version: 1.13.0
 ---
 
 # VTEX RFP Response
@@ -238,51 +238,31 @@ wastes a turn to be told so.
 > ships, grep for the old field name across every script before running anything, because the scripts will
 > keep succeeding.
 
-> 🔒 **Technical depth is proportional to who does the work, and the direction is not the intuitive one.** A
-> detailed answer on a row that needs custom work reads as a commitment to a specific implementation, written
-> before anyone sized it. Six months later the real implementation is different and the RFP is the thing the
-> client holds up.
+> 🔒 **Technical depth follows who does the work: native rows go deep, custom rows stay in business
+> language.** Decided 2026-09-30, following the reviewing SE's position.
 >
 > | The row is | Write |
 > |---|---|
-> | native | business language. The product exists; how it is built is not the client's question |
-> | custom, or built by the integrator | name the VTEX surface the work rests on, and say the integrator builds on top. Nothing further |
+> | native (`platform`) | **technical depth.** How the platform does it: the module, the configuration, the API or setting involved, the limits. The product exists and is documented, so every detail is verifiable against the cited page, and depth is what makes a native answer credible to a technical evaluator |
+> | custom (`integrator-build`, or the SI's part of a `shared` row) | **business language.** What the client gets, which VTEX surface it rests on, and that the integrator builds it. Nothing about how |
 >
-> Silence is also a promise, which is why the shallow half still names the surface. A row that needs SI work
-> and only says "VTEX supports this" reads as native. **Naming the work is what prevents the promise;
-> describing how to do it is what creates a different one.**
+> Why the custom half stays shallow: a detailed answer on custom work reads as a commitment to a specific
+> implementation, written before anyone sized it. Six months later the real implementation is different and the
+> RFP is the thing the client holds up. Sequences of steps, data models, field mappings and estimates belong in
+> a Solution Design, not an RFP.
 >
-> The test: **if someone could start coding from the sentence, it is too deep. If the reader cannot tell which
-> VTEX capability it rests on or who builds it, it is too shallow.** Sequences of steps, data models, field
-> mappings and estimates belong in a Solution Design, not an RFP.
+> Silence is also a promise, which is why the custom half still names the surface and who builds. A row that
+> needs SI work and only says "VTEX supports this" reads as native.
 >
-> This one does not become a gate, because depth is judgment, not a pattern. What can be measured on
-> `integrator-build` rows is a proxy: endpoint names, numbered steps, ordered procedures. Flag those for
-> review rather than rejecting them.
+> Depth on native rows is still bounded by the citation rules: every technical detail must be on the cited
+> page (rule 1), and depth never means narrating our process.
 >
-> ⚠️ **Open rule.** This is the working direction, not a settled one. A reviewing SE argued the opposite
-> (native = technical depth, custom = business language), and that disagreement was never formally closed
-> before the rule shipped. If it comes up again, reopen it rather than defending this table as final.
+> This is not a hard gate, because depth is judgment. `validate_draft.py` does **warn** on the measurable
+> proxy on custom rows: endpoint paths, numbered steps, ordered procedures.
 
 ---
 
-## Open design questions (not yet implemented)
-
-Two proposals surfaced from real use and never made it into this skill. They weren't rejected; nobody had
-confirmed the exact rule. Both are about how the skill should behave on *every* run.
-
-**A1: derive `Line class` and `Owner` from the response, after it's written, not alongside it, and support a
-real three-way owner.** Motivating case: a Business Impact Analysis requirement came back `line_class:
-platform` / `Owner: VTEX` while its own response text said the integrator builds it. The two fields were set
-independently of the prose instead of read off it. Separately, real rows exist that split responsibility three
-ways (VTEX + SI + client), which the current two-value owner enum can't express. **Not built.**
-
-**A3: the reconciliation diff needs three sides, not two.** When an SE edits the review workbook, detecting
-"what the SE changed" by diffing their copy against *our current file* breaks the moment our own file has
-moved on since the copy was sent. The mechanism then reads our own later edit as if the SE had made it. The
-fix needs three points: the frozen snapshot actually sent to the SE, the SE's returned copy, and our current
-file. Motivating case: this structural check caught 172 corrections in a real run that a two-way diff would
-have gotten wrong. **Not built.**
+## Two lessons about gates
 
 > 🔒 **A gate you have not seen reject anything is not a gate.** Measured 2026-08-11, three times in one day,
 > all the same shape. Each check passed for a reason unrelated to what it checked: a citation verified
@@ -449,7 +429,12 @@ minimum, a marketplace deal adds seller portal, a B2B deal adds Buyer Portal. No
 **Buyer Portal requires FastStore**, so a storefront decision that rules out FastStore rules out Buyer Portal
 too, whatever the B2B fit signals say. If no matrix exists, build the proposal from documentation and say so.
 
-> 🔒 **A row citing a matrix entry still needs its own fresh check, not a copy-paste.** Capability status
+> 🔒 **The most recent source wins, always.** A matrix is a starting point for the architecture
+> conversation, never the answer. Re-check every capability against the live documentation (`fetch_document`)
+> at the moment you answer. When the matrix and the documentation disagree, the documentation wins and you tell
+> the SE which matrix row is out of date.
+>
+> **A row citing a matrix entry still needs its own fresh check, not a copy-paste.** Capability status
 > moves: Apple Pay's cross-browser support and FastCheckout's regional coverage both changed within a single
 > month during this skill's own research. Treat any matrix row older than a few weeks as *to confirm*, and
 > never quote one into the client-facing answer without the same search-and-cite discipline (rules 1–3).
@@ -531,6 +516,20 @@ happened:
 > faster, and it makes answers inside a section consistent with each other.
 
 ### Step 3: Classify, then run both checks, per row
+
+**3.0: Read who does the work off the answer you just wrote.** Set `line_class` after the prose, never
+beside it. *(A Business Impact Analysis row came back `platform` / VTEX while its own text said the
+integrator builds it: the two were set independently.)*
+
+| `line_class` | When the answer says | Owner in the client's file |
+|---|---|---|
+| `platform` | VTEX does it natively or by configuration | VTEX |
+| `integrator-build` | the capability must be built by the SI | Integrator |
+| `shared` | the work splits between VTEX, the SI and/or the client; list them in `owners` | e.g. VTEX + Integrator + Client |
+| `not-deliverable` | there is no path at all (the only class allowed with a `none` coverage) | none |
+
+The owner is **derived** from this, never typed separately, so the two cannot disagree. The validator rejects
+a `platform` row whose answer says someone else builds it.
 
 **3.1: Assign coverage** by rule 7, in the client's vocabulary.
 
@@ -635,7 +634,7 @@ architecture there too (`architecture.forbidden_terms`), which makes it a regist
 paragraph in a prompt.
 
 Each draft row carries, besides the client's fields: `capability_slug`, `line_class` (`platform` ·
-`integrator-build` · `not-deliverable`), `caveat_in_prose`, `evidence_url`, a verbatim `provenance_quote`
+`integrator-build` · `shared` · `not-deliverable`, see Step 3.0), `owners` (on `shared` rows), `caveat_in_prose`, `evidence_url`, a verbatim `provenance_quote`
 of at least 40 characters, `searches` (for rule 9), `review_flag` and `se_review_required`.
 
 | Order | Script | What it does |
@@ -647,7 +646,8 @@ of at least 40 characters, `searches` (for rule 9), `review_flag` and `se_review
 | 5 | `sync_registry.py _drafts/<section>.jsonl` | After a section passes, records its verdicts so later rows cannot contradict them. `--worker <id>` writes a shard |
 | 6 | `verify_quotes.py _drafts/*.jsonl` | Checks each quote on the **live** page the evaluator will open. Reports `UNVERIFIABLE` (not `FAILED`) when the environment serves one cached body for every URL |
 | 7 | `rollup.py _drafts/*.jsonl` | Step 4 numbers per section, with the arithmetic and excluded rows shown |
-| 8 | `write_back.py <client.xlsx> <new.xlsx> _drafts/*.jsonl` | Transposes into a copy of the client's file (see below) |
+| 8 | `write_back.py <client.xlsx> <new.xlsx> _drafts/*.jsonl` | Transposes into a copy of the client's file (see below). An `owner` column is derived from `line_class` |
+| 9 | `handoff.py freeze` / `handoff.py reconcile` | Hands the review workbook to the SE and reads their edits back (see "SE review round-trip") |
 
 Every script exits non-zero when it rejects something. **Nothing reaches the client's file until 3 and 4 exit
 0.** Report every rejection to the SE with its row ID. Don't fix a row just to make the gate pass.
@@ -658,6 +658,24 @@ have not seen reject anything is not a gate").
 
 **If the session cannot run scripts**, run the same checks by reading the rows and report each one's result to
 the SE.
+
+## SE review round-trip
+
+When the SE reviews in the workbook itself:
+
+1. `write_back.py` produces the review workbook, and then `handoff.py freeze review.xlsx` keeps a read-only
+   copy of **exactly what was sent**. Send the workbook to the SE.
+2. Keep working if you need to. Your drafts may move on while the SE reviews.
+3. When the copy comes back, run `handoff.py reconcile _handoff/<name> returned.xlsx _drafts/*.jsonl`. It
+   compares three versions of every cell: what was sent, what the SE returned, and your drafts now.
+   - The SE changed it and you didn't: their edit wins (applied with `--apply`).
+   - You changed it and the SE didn't: yours stays. A two-sided diff would revert it.
+   - Both of you changed it: **conflict**. Nothing is applied for that cell, and the SE decides.
+4. Read the report: edits are split into verdict, source, fact and style changes, so "the SE rewrote 40
+   rows" becomes "3 facts corrected, 37 reworded". Re-run the gates, then update the registry for any
+   verdict the SE changed.
+
+**One workbook, one owner at a time.** Never merge a new wave into a workbook while an SE has it.
 
 ## Transposing into the client's file
 
@@ -681,8 +699,6 @@ transposed by hand.
 
 ## Not in this version
 
-- **Review-workbook reconciliation** (reading SE edits back, and the delta of what they changed). It waits on
-  open question A3, the three-sided diff.
 - **A coverage summary tab in the client's workbook.** `rollup.py` prints the numbers; adding them as a tab
   depends on each client's layout.
 - **Historical response corpus.** It belongs as a *verification* layer (checking a draft against what VTEX has
@@ -691,6 +707,11 @@ transposed by hand.
 
 ## Version history
 
+- **1.13.0 (2026-09-30).** Technical depth now follows the reviewing SE's direction: native rows go deep,
+  custom rows stay in business language. Step 3.0 (A1): `line_class` is read off the answer, a `shared`
+  class carries a VTEX + SI + client split, and the owner is derived. SE review round-trip (A3): `handoff.py`
+  freezes what was sent and reconciles with a three-sided diff. Capability matrices stay optional; the
+  latest documentation always wins.
 - **1.12.0 (2026-09-30).** The validation and write-back scripts are back, generalized: `rfp.config.json`
   now carries the client's scale, field names, row IDs, language and column mapping. Seeded-bad-row tests
   cover every gate. Added `rollup.py` for Step 4.

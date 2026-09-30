@@ -53,7 +53,8 @@ VTEX's answers.
 | `scripts/sync_registry.py` | One canonical verdict per capability across sections and workers |
 | `scripts/verify_quotes.py` | Checks each quote on the live page the evaluator will open |
 | `scripts/rollup.py` | Step 4 coverage numbers with the arithmetic shown |
-| `scripts/write_back.py` | Writes into a copy of the client's `.xlsx` without dropping drawings or tables |
+| `scripts/write_back.py` | Writes into a copy of the client's `.xlsx` without dropping drawings or tables; derives the Owner column |
+| `scripts/handoff.py` | Freezes the review workbook sent to the SE and reads their edits back with a three-sided diff, so later edits of ours are never reverted |
 | `scripts/tests/test_gates.py` | Seeds one bad row per check and asserts it is rejected |
 
 ## Author
