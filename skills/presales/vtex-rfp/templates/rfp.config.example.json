@@ -1,0 +1,46 @@
+{
+  "_comment": "Copy to rfp.config.json in the opportunity folder and adapt to the client's matrix. Every key is optional; omitted keys fall back to the defaults in scripts/_common.py.",
+
+  "coverage": {
+    "Compliant": "full",
+    "Partially compliant": "partial",
+    "Not compliant": "none",
+    "N/A": "na",
+    "Clarification required": "clarification"
+  },
+
+  "fields": {
+    "id": "rfp_id",
+    "coverage": "coverage",
+    "response": "response",
+    "gap": "gap",
+    "implementation": "implementation",
+    "assumptions": "assumptions",
+    "section": "section"
+  },
+  "client_facing": ["response", "gap", "implementation", "assumptions"],
+  "required": ["response", "implementation"],
+
+  "row_id_pattern": "\\bRFP-\\d+(?:\\.\\d+)?-\\d{3}\\b",
+  "row_id_bare_pattern": "\\b\\d+(?:\\.\\d+)?-\\d{3}\\b",
+  "row_id_prefix": "RFP-",
+
+  "locale": "es",
+  "extra_verdict_phrases": ["cumple (?:totalmente|parcialmente)", "no cumple"],
+  "extra_inherit_markers": [],
+  "extra_risk_terms": ["seguridad", "pago", "precio", "datos personales"],
+  "extra_cost_disclosure": ["coste adicional", "licencia aparte", "producto de pago"],
+
+  "architecture": {
+    "name": "headless-external",
+    "forbidden_terms": ["FastStore", "Store Framework", "Site Editor"]
+  },
+
+  "write_back": {
+    "sheet": "Requirements",
+    "header_row": 1,
+    "key_column": "A",
+    "columns": {"coverage": "H", "response": "I", "evidence_url": "J"},
+    "new_headers": {"I": "Response detail", "J": "Reference"}
+  }
+}
