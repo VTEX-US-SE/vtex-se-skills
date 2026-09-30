@@ -75,6 +75,11 @@ CLIENT_DOES = re.compile(r"\b(?:the\s+)?(?:client|customer)(?:'s)?\s+(?:\w+\s+){
 # Custom rows stay in business language (SKILL.md, technical depth). Warn on the measurable proxy.
 IMPLEMENTATION_DETAIL = re.compile(r'(?:/api/[\w/{}.-]+|\b(?:GET|POST|PUT|PATCH|DELETE)\s+/|(?m:^\s*\d+[.)]\s)|\bstep\s+\d)', re.I)
 
+# Rule 6: a certification requirement cites the Trust Center, the artefact procurement asks for.
+CERTIFICATION = re.compile(r'\bISO\s*/?\s*(?:IEC\s*)?27\d{3}|\bSOC\s*[12]\b|\bPCI(?:\s*DSS)?\b|\bISAE\b|\bSSAE\b'
+                           r'|\bTISAX\b|\bCSA\s*STAR\b|\bcertif|\battest', re.I)
+TRUST_CENTER = 'compliance.vtex.com'
+
 POLARITY_NEG = re.compile(r'\bis not a VTEX feature\b|\bnot a VTEX\b|VTEX (?:does not|doesn\'t) '
                           r'(?:provide|support|offer|host)|\bno native\b', re.I)
 POLARITY_POS = re.compile(r'VTEX (?:does )?(?:support|provide|publish|host)s?\b'
@@ -118,6 +123,21 @@ def check(rows, cfg, manifest, registry):
         W = lambda m, r=r: warns.append(f'{r.id}: {m}')
         role = r.role
         klass = r.raw.get('line_class') or r.raw.get('row_class')
+        profile = r.profile
+
+        # --- commercial sections: not answered here, the SE decides where they go ---
+        if profile == 'commercial':
+            if norm(r.client_text()):
+                E('commercial section (pricing / contract / legal): the skill does not draft an answer. '
+                  "Leave the client fields empty and put the question for the SE in 'se_question'")
+            if r.raw.get('review_flag') != 'commercial' or not r.raw.get('se_review_required'):
+                E("commercial row needs review_flag='commercial' and se_review_required=true")
+            continue
+
+        # An RFI that does not score its questions has no coverage column to fill.
+        unscored = profile == 'rfi' and not r.coverage
+        if unscored:
+            role = 'unscored'
 
         # --- schema ---
         if role is None:
@@ -141,6 +161,16 @@ def check(rows, cfg, manifest, registry):
             E('clarification requested but no question in the assumptions field')
         # --- A1: who does the work, read off the answer ---
         client_prose = r.client_text()
+        if profile == 'security' and not r.raw.get('se_review_required'):
+            E('security section: every row needs se_review_required=true')
+        if CERTIFICATION.search(r.client_text() + ' ' + r.text('requirement')):
+            urls = [r.raw.get('evidence_url') or ''] + list(r.raw.get('evidence_urls') or [])
+            if not any(TRUST_CENTER in u for u in urls):
+                E(f'certification row without a Trust Center citation (rule 6): add https://{TRUST_CENTER}/ '
+                  'to evidence_urls')
+        for u in r.raw.get('evidence_urls') or []:
+            if not on_citable_domain(u, cfg['citable_domains']):
+                E(f'evidence_urls has a non-VTEX domain (rule 2): {u}')
         if role in ('full', 'partial', 'none') and klass not in LINE_CLASSES:
             E(f'line_class {klass!r} is missing or invalid ({" | ".join(sorted(LINE_CLASSES))}). '
               'Set it AFTER writing the answer, from what the answer says')
@@ -188,7 +218,7 @@ def check(rows, cfg, manifest, registry):
         # --- evidence ---
         url = norm(r.raw.get('evidence_url'))
         # A claim needs a source. A 'none' row has nothing to cite; rule 9 covers it instead.
-        if role in ('full', 'partial') or url:
+        if role in ('full', 'partial', 'unscored') or url:
             if not url:
                 E('no evidence_url (rule 1: one source URL per factual claim)')
             elif not on_citable_domain(url, cfg['citable_domains']):

@@ -21,6 +21,11 @@ pages, legacy documentation, gaps bleeding across rows, verdicts restated in pro
 Fires when someone pastes RFP/RFI requirements, a security questionnaire, or a requirements matrix and wants
 VTEX's answers.
 
+It handles mixed documents section by section. Functional sections get the full workflow. Security
+questionnaires skip the architecture discussion and go to SE review row by row. Pricing, contract and legal
+questions are not answered; they're flagged for the SE to direct. The SE chooses whether to review in chat, in
+Google Sheets or Excel, or both.
+
 | Your situation | Where to go |
 |---|---|
 | Answer the client's matrix requirement by requirement, with coverage values | `vtex-rfp` |
@@ -54,6 +59,7 @@ VTEX's answers.
 | `scripts/verify_quotes.py` | Checks each quote on the live page the evaluator will open |
 | `scripts/rollup.py` | Step 4 coverage numbers with the arithmetic shown |
 | `scripts/write_back.py` | Writes into a copy of the client's `.xlsx` without dropping drawings or tables; derives the Owner column |
+| `scripts/edit_row.py` | Applies an edit the SE asks for in chat, logs it, and re-checks the row at once |
 | `scripts/handoff.py` | Freezes the review workbook sent to the SE and reads their edits back with a three-sided diff, so later edits of ours are never reverted |
 | `scripts/tests/test_gates.py` | Seeds one bad row per check and asserts it is rejected |
 

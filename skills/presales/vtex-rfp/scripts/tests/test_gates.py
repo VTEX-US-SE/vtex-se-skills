@@ -26,6 +26,7 @@ GOOD = {
     'response': 'VTEX is a PCI DSS v4 Level 1 service provider for card payments.',
     'evidence_url': URL, 'provenance_quote': QUOTE, 'capability_slug': 'pci-dss',
     'line_class': 'platform', 'se_review_required': True,
+    'evidence_urls': ['https://compliance.vtex.com/'],
 }
 
 
@@ -199,6 +200,45 @@ class ValidateDraft(unittest.TestCase):
         code, out = f.run('validate_draft.py', '_drafts/d.jsonl')
         f.close()
         self.assertIn('Custom rows stay in business language', out)
+
+    def test_certification_needs_trust_center(self):
+        self.assertRejects([row(evidence_urls=None)], 'without a Trust Center citation (rule 6)')
+
+    def test_extra_evidence_url_domain(self):
+        self.assertRejects([row(evidence_urls=['https://compliance.vtex.com/', 'https://example.com/x'])],
+                           'evidence_urls has a non-VTEX domain')
+
+    def test_security_profile_requires_se_review(self):
+        self.assertRejects([row(se_review_required=None)], 'security section: every row needs se_review_required',
+                           config={'profiles': {'1': 'security'}})
+
+    def test_commercial_row_must_not_be_answered(self):
+        self.assertRejects([row(section='14.2', review_flag='commercial')], 'does not draft an answer',
+                           config={'profiles': {'14': 'commercial'}})
+
+    def test_commercial_row_left_for_the_se_passes(self):
+        f = Folder([GOOD, {'rfp_id': 'RFP-14-001', 'section': '14', 'review_flag': 'commercial',
+                           'se_review_required': True, 'se_question': 'Client asks for a 3-year price lock.'}],
+                   config={'profiles': {'14': 'commercial'}})
+        code, out = f.run('validate_draft.py', '_drafts/d.jsonl')
+        code2, out2 = f.run('rollup.py', '_drafts/d.jsonl')
+        f.close()
+        self.assertEqual(code, 0, out)
+        self.assertIn('Not scored (commercial rows left to the SE', out2)
+        self.assertIn('Gross = (1 + 0) / 1', out2)
+
+    def test_unscored_rfi_row_passes_without_coverage(self):
+        f = Folder([row(coverage=None, line_class=None)], config={'default_profile': 'rfi'})
+        code, out = f.run('validate_draft.py', '_drafts/d.jsonl')
+        f.close()
+        self.assertEqual(code, 0, out)
+
+    def test_unscored_rfi_row_still_needs_a_source(self):
+        self.assertRejects([row(coverage=None, line_class=None, evidence_url=None)], 'no evidence_url',
+                           config={'default_profile': 'rfi'})
+
+    def test_unknown_profile_in_config(self):
+        self.assertRejects([GOOD], 'unknown profile', config={'profiles': {'1': 'legal'}})
 
     def test_duplicate_id(self):
         self.assertRejects([GOOD, GOOD], 'appears 2 times')
@@ -435,6 +475,58 @@ class Handoff(unittest.TestCase):
         code, out = self.f.run('handoff.py', 'freeze', 'review.xlsx', '--name', 'h1')
         self.assertNotEqual(code, 0)
         self.assertIn('never overwritten', out)
+
+
+class EditRow(unittest.TestCase):
+    """Reviewing in chat: the edit lands in the drafts, is logged, and is re-checked at once."""
+
+    def setUp(self):
+        self.f = Folder([GOOD, row(rfp_id='RFP-1-002', capability_slug='b')])
+
+    def tearDown(self):
+        self.f.close()
+
+    def draft(self, rid):
+        rows = map(json.loads, (self.f.path / '_drafts' / 'd.jsonl').read_text().splitlines())
+        return next(r for r in rows if r['rfp_id'] == rid)
+
+    def test_edit_applied_logged_and_checked(self):
+        code, out = self.f.run('edit_row.py', 'RFP-1-002', 'coverage=Partial', 'gap=Only card payments.', '--by', 'Ana')
+        self.assertEqual(code, 0, out)
+        self.assertIn('gates: RFP-1-002 passes', out)
+        r = self.draft('RFP-1-002')
+        self.assertEqual((r['coverage'], r['gap'], r['se_edited']), ('Partial', 'Only card payments.', ['coverage', 'gap']))
+        log = [json.loads(l) for l in (self.f.path / '_review' / 'edit_log.jsonl').read_text().splitlines()]
+        self.assertEqual([(x['field'], x['kind'], x['by']) for x in log],
+                         [('coverage', 'VERDICT', 'Ana'), ('gap', 'FACT', 'Ana')])
+
+    def test_edit_that_breaks_a_rule_is_kept_but_reported(self):
+        code, out = self.f.run('edit_row.py', 'RFP-1-002', 'coverage=Partial')
+        self.assertEqual(code, 1, out)
+        self.assertIn('REJECTED RFP-1-002: partial coverage with no gap described', out)
+        self.assertEqual(self.draft('RFP-1-002')['coverage'], 'Partial')
+
+    def test_json_values(self):
+        self.f.run('edit_row.py', 'RFP-1-002', 'line_class=shared', 'owners=["VTEX","SI"]', 'coverage=Partial', 'gap=g')
+        r = self.draft('RFP-1-002')
+        self.assertEqual(r['owners'], ['VTEX', 'SI'])
+
+    def test_dry_run_writes_nothing(self):
+        self.f.run('edit_row.py', 'RFP-1-002', 'response=New text for the row.', '--dry-run')
+        self.assertEqual(self.draft('RFP-1-002')['response'], GOOD['response'])
+        self.assertFalse((self.f.path / '_review').exists())
+
+    def test_warns_when_a_workbook_is_out(self):
+        h = self.f.path / '_handoff' / 'h1'
+        h.mkdir(parents=True)
+        (h / 'sent.xlsx').write_bytes(b'x')
+        code, out = self.f.run('edit_row.py', 'RFP-1-002', 'response=VTEX is a PCI DSS v4 service provider.')
+        self.assertIn('still out with an SE (h1)', out)
+
+    def test_unknown_row(self):
+        code, out = self.f.run('edit_row.py', 'RFP-9-999', 'coverage=Gap')
+        self.assertNotEqual(code, 0)
+        self.assertIn('not found', out)
 
 if __name__ == '__main__':
     unittest.main()

@@ -35,12 +35,16 @@ def main(argv=None):
     for r in rows:
         sections.setdefault(r.text('section') or '(no section)', []).append(r)
 
-    def summarize(rs):
+    def summarize(all_rs):
+        # Commercial rows are the SE's, and an unscored RFI row has no coverage: neither is scored.
+        side = [r for r in all_rs if r.profile == 'commercial' or (r.profile == 'rfi' and not r.coverage)]
+        rs = [r for r in all_rs if r not in side]
         c = collections.Counter(r.role for r in rs)
         covered, scored = c['full'] + c['partial'], len(rs) - c['na']
         return {'rows': len(rs), 'full': c['full'], 'partial': c['partial'], 'none': c['none'],
                 'clarification': c['clarification'], 'excluded_na': [r.id for r in rs if r.role == 'na'],
                 'unknown': [r.id for r in rs if r.role is None],
+                'not_scored': [r.id for r in side],
                 'gross': pct(covered, scored), 'net': pct(covered, len(rs)),
                 'gross_arithmetic': f'({c["full"]} + {c["partial"]}) / {scored}',
                 'net_arithmetic': f'({c["full"]} + {c["partial"]}) / {len(rs)}'}
@@ -60,6 +64,8 @@ def main(argv=None):
     print(f'\nGross = {t["gross_arithmetic"]} = {t["gross"]}. Net = {t["net_arithmetic"]} = {t["net"]}.')
     if t['excluded_na']:
         print(f'Excluded from the scored denominator: {", ".join(t["excluded_na"])}.')
+    if t['not_scored']:
+        print(f'Not scored (commercial rows left to the SE, or unscored RFI rows): {", ".join(t["not_scored"])}.')
     if t['unknown']:
         print(f'Rows with a coverage value outside the scale (not counted as covered): {", ".join(t["unknown"])}.')
     if not result['scale_can_say_no']:

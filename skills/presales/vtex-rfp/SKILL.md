@@ -5,7 +5,7 @@ description: >-
   documentation, with a source URL per factual claim and a coverage value scored
   on the client's matrix. Use when the user pastes RFP requirements, a security
   questionnaire, or a requirements matrix.
-version: 1.13.0
+version: 1.14.0
 ---
 
 # VTEX RFP Response
@@ -34,6 +34,10 @@ comparable VTEX clients**, see Step 0.3).
 **Optional, external:** `vtex-architect` and `vtex-expert` from the Ai Atlas plugin (see Step 0.3 and Step 2).
 They are not bundled here. If they are not installed, skip the steps that use them and search the
 documentation directly.
+
+**Where it runs.** The full workflow (scripts, gates, spreadsheet round-trip) needs file access: Claude Code
+in the terminal or the desktop app. In a plain Claude chat without file access, answer in conversation, say
+that the gates did not run, and say the answers must be transposed by hand.
 
 **Do not** look up architecture documents or live accounts. At RFP stage they do not exist, and calling them
 wastes a turn to be told so.
@@ -355,6 +359,22 @@ Then state what the document tells you:
 - **Their coverage vocabulary**, if the matrix defines one
 - **Business context**: stores, brands, channels
 
+**Classify each section, not the document.** A large RFP often mixes kinds of question, and each kind needs
+different handling. Propose a profile per section and confirm it at Step 0.3:
+
+| Profile | Typical content | How it is handled |
+|---|---|---|
+| `full` | Functional and technical requirements | The whole workflow, including the architecture proposal and the solution set |
+| `security` | InfoSec and privacy questionnaires (SIG, CAIQ, the client's own) | No architecture step. Sources: the Trust Center first, then VTEX's security and privacy documentation. **Every row goes to SE review.** Process questions (pen-test cadence, insurance, background checks, review meetings) are usually "not a product requirement" (rule 7) |
+| `rfi` | "Describe your platform", capability overviews | Cited answers as usual. If the client does not score, leave coverage empty. Architecture only if they ask for it |
+| `commercial` | Pricing, contract terms, liability, penalties, legal | **Not answered.** Leave the client's fields empty, write what they're asking in `se_question`, and flag the row `commercial`. The SE decides where it goes |
+
+A security-only questionnaire is simply a document whose sections are all `security`: skip the
+architecture questions at Step 0.3 and the precedent search, and go straight to the requirements.
+
+Record the profiles in `rfp.config.json` (`"profiles": {"13": "security", "14": "commercial"}`). A key covers
+its subsections. The gates follow the profile.
+
 **Also check whether they dictate the answer format.** Some RFPs define the coverage values, the wording, or
 how they want each item scored. **If they do, that wins over any default of ours.** Say you found it and use
 it verbatim.
@@ -381,7 +401,8 @@ their side.
 **0.3: Ask the SE. Do this after reading the document, not before.**
 
 Reading first means asking **specific** questions instead of generic ones. Put them in one short block and
-**offer to proceed either way**, since the SE may not be available and the work should not stall:
+**offer to proceed either way**, since the SE may not be available and the work should not stall. **Ask only
+what the document's profiles need**: questions 1 and 2 apply only when there is a `full` section.
 
 1. **Architecture.** Do you already have a direction in mind for this client (headless, native storefront,
    composable)? *This changes the honest answer on any requirement a native app would otherwise cover.* Arrive
@@ -394,6 +415,10 @@ Reading first means asking **specific** questions instead of generic ones. Put t
 5. **Language.** The document is written in [language detected at Step 0.1]. Is that the language you want
    the final answer delivered in, and will you review the draft before it reaches the client? *The second half
    is not a formality: it decides the mechanics, not just the target (see "Which language").*
+6. **Review mode.** Where do you want to review: here in chat, in the spreadsheet (Google Sheets or Excel), or
+   both? **Always ask. Never pick a default for the SE.** See "Reviewing in chat" and "SE review round-trip".
+7. **Section profiles.** Confirm the proposed profile per section, especially anything proposed as
+   `commercial`, since those rows will not be answered.
 
 Then say: *"I can proceed on stated assumptions and flag every one of them, or wait for your answers."*
 **Never block silently, and never guess silently.**
@@ -560,6 +585,7 @@ document, `n/a` went up and `unchecked` was never used once. **A rule read after
 | `client-prerequisite` | A documented VTEX prerequisite may not be met *(pickup point, ERP billing integration, account topology)* |
 | `sources-conflict` | VTEX sources disagree |
 | `not-found` | No documentation located |
+| `commercial` | Pricing, contract or legal. Not answered; the question goes to the SE in `se_question` |
 
 > **The SE always reviews, so the useful output is not just a verdict. It is a verdict plus where to look
 > hard.** A flagged row costs the SE two minutes. The same row answered confidently and wrongly costs a
@@ -589,6 +615,9 @@ the cited page, alongside the columns above.
 **Group the flagged rows by reason.** That is the work queue, ordered by where judgment is actually needed.
 Then list: requirements with no documented answer · **compliance, security, pricing and SLA, always** ·
 contradictions between sources · anything jurisdiction-dependent.
+
+List the `commercial` rows on their own, with each `se_question`, and let the SE decide what happens to
+them. Don't route them to a team, and don't draft an answer.
 
 Do not ask the SE to review what was answered from a cited source with no open question.
 
@@ -634,8 +663,9 @@ architecture there too (`architecture.forbidden_terms`), which makes it a regist
 paragraph in a prompt.
 
 Each draft row carries, besides the client's fields: `capability_slug`, `line_class` (`platform` ·
-`integrator-build` · `shared` · `not-deliverable`, see Step 3.0), `owners` (on `shared` rows), `caveat_in_prose`, `evidence_url`, a verbatim `provenance_quote`
-of at least 40 characters, `searches` (for rule 9), `review_flag` and `se_review_required`.
+`integrator-build` · `shared` · `not-deliverable`, see Step 3.0), `owners` (on `shared` rows), `caveat_in_prose`, `evidence_url`, `evidence_urls` (extra
+sources, e.g. the Trust Center), a verbatim `provenance_quote` of at least 40 characters, `searches` (for rule
+9), `review_flag`, `se_review_required`, and `se_question` on `commercial` rows.
 
 | Order | Script | What it does |
 |---|---|---|
@@ -647,6 +677,7 @@ of at least 40 characters, `searches` (for rule 9), `review_flag` and `se_review
 | 6 | `verify_quotes.py _drafts/*.jsonl` | Checks each quote on the **live** page the evaluator will open. Reports `UNVERIFIABLE` (not `FAILED`) when the environment serves one cached body for every URL |
 | 7 | `rollup.py _drafts/*.jsonl` | Step 4 numbers per section, with the arithmetic and excluded rows shown |
 | 8 | `write_back.py <client.xlsx> <new.xlsx> _drafts/*.jsonl` | Transposes into a copy of the client's file (see below). An `owner` column is derived from `line_class` |
+| – | `edit_row.py <row> field=value …` | Applies an edit the SE asked for in chat, logs it and re-checks the row (see "Reviewing in chat") |
 | 9 | `handoff.py freeze` / `handoff.py reconcile` | Hands the review workbook to the SE and reads their edits back (see "SE review round-trip") |
 
 Every script exits non-zero when it rejects something. **Nothing reaches the client's file until 3 and 4 exit
@@ -658,6 +689,23 @@ have not seen reject anything is not a gate").
 
 **If the session cannot run scripts**, run the same checks by reading the rows and report each one's result to
 the SE.
+
+## Reviewing in chat
+
+When the SE chose to review in chat (Step 0.3, question 6):
+
+1. Walk the SE through the Step 6 queue **in batches of about 10 rows**, flagged rows first. For each row,
+   show the requirement, the answer, the coverage, who does the work, and the source.
+2. The SE answers in their own words ("approve", "make it Partial, the gap is X", "shorter", "wrong
+   source"). Turn each change into `edit_row.py <row> field=value …`, with `--by` set to the SE's name.
+3. Show the SE what `edit_row.py` printed. If a gate rejects the edit, the edit is still saved, and the SE
+   decides whether to adjust it. Never quietly rewrite the SE's text to satisfy a gate.
+4. Every edit is logged in `_review/edit_log.jsonl` with the same verdict / source / fact / style classes as
+   the spreadsheet round-trip, so the delta report reads the same whichever way the SE reviewed.
+
+Chat and spreadsheet can be combined: fix the hard rows in chat and polish in the sheet. An edit made in chat
+counts as ours, so if the same cell is also changed in the returned workbook, reconcile reports a conflict
+instead of overwriting either one.
 
 ## SE review round-trip
 
@@ -707,6 +755,11 @@ transposed by hand.
 
 ## Version history
 
+- **1.14.0 (2026-09-30).** Section profiles (`full` · `security` · `rfi` · `commercial`) decided at Step 0:
+  security questionnaires skip the architecture step and require SE review on every row, and commercial rows
+  are left to the SE. Rule 6 (Trust Center on certification rows) is now a gate. Review in chat with
+  `edit_row.py`, and the review mode is always asked. Every question is still researched fresh; there is no
+  answer library.
 - **1.13.0 (2026-09-30).** Technical depth now follows the reviewing SE's direction: native rows go deep,
   custom rows stay in business language. Step 3.0 (A1): `line_class` is read off the answer, a `shared`
   class carries a VTEX + SI + client split, and the owner is derived. SE review round-trip (A3): `handoff.py`
