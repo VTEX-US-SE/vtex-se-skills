@@ -557,7 +557,7 @@ document, `n/a` went up and `unchecked` was never used once. **A rule read after
 | Reason | When |
 |---|---|
 | `solution-design` | The client's intended architecture changes the answer, whether stated in their document or still unknown |
-| `local-compliance` | Fiscal or legal requirement outside documented VTEX scope *(e.g. Greek myDATA, Cypriot fiscal receipts)* |
+| `local-compliance` | Fiscal or legal requirement outside documented VTEX scope *(e.g. a national e-invoicing mandate, fiscal receipts for in-store sales)* |
 | `client-prerequisite` | A documented VTEX prerequisite may not be met *(pickup point, ERP billing integration, account topology)* |
 | `sources-conflict` | VTEX sources disagree |
 | `not-found` | No documentation located |

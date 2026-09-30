@@ -34,24 +34,13 @@ VTEX's answers.
 - **Optional connectors**, read only: Rocketlane, Granola, Google Drive, Slack, and `atlas-agent`. Each one
   adds context. The skill says so when one is missing and keeps going.
 - **`vtex-architect` and `vtex-expert`**: optional. **External prerequisite, not bundled in this repo.**
-  They're part of the Ai Atlas Claude plugin, maintained by its own owners. Copying them here would create a
-  second copy that drifts (see `CONTRIBUTING.md`, "Hard dependencies on externally-maintained skills").
-  Without them, the skill searches the documentation directly.
+  They ship in the Ai Atlas Claude plugin, which the Atlas team maintains (the same maintainer as
+  `vams-to-miro`, see [`solution-design`](./solution-design.md)). It's released from
+  `vtexprojects/ai-atlas-integrations` as a "Claude Plugin" GitHub Release, and you install it by opening the
+  `.plugin` file. Copying them here would create a second copy that drifts (see `CONTRIBUTING.md`, "Hard
+  dependencies on externally-maintained skills"). Without them, the skill searches the documentation directly.
 - **Validation and write-back scripts: not shipped yet.** The skill lists the checks to run by hand under
   "Validation gates". Generalized scripts are planned for a follow-up PR.
-
-## Common questions
-
-**Why doesn't it answer in English by default?**
-
-The prose is pasted into the client's matrix and read by their evaluation committee, so it goes in the
-language of their document. The skill confirms that with the SE. When the SE reviews before delivery, it
-drafts in the SE's working language and translates once, after review, so the two versions can't drift apart.
-
-**Why is it stricter about "not supported" than about "supported"?**
-
-On real runs, the costly mistake was refusing things VTEX actually publishes, not inventing capabilities.
-That's why a "not supported" answer needs two separate searches first.
 
 ## Author
 

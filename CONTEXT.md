@@ -12,6 +12,12 @@ skills.
 - **FastStore** — VTEX's server-rendered storefront framework (v3/v4).
 - **RFP** — Request for Proposal; also the name of the team's `vtex-rfp` skill for responding to
   them.
+- **VTEX IO** — VTEX's app development platform (backend services and storefront apps).
+- **Store Framework** — the VTEX IO storefront built from blocks; edited through **Site Editor**. Not
+  in the default RFP solution set (FastStore is).
+- **CMS Portal (Legacy)** — the pre-IO storefront/CMS stack, no longer available for new accounts.
+- **Buyer Portal** — VTEX's B2B buyer experience; requires FastStore.
+- **Trust Center** — `compliance.vtex.com`, VTEX's public certifications and attestations page.
 - **OMS** — Order Management System.
 - **PIM** — Product Information Management.
 - **MCP** — Model Context Protocol, used to connect agents to tools like VTEX Developer, VTEX
