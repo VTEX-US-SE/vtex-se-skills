@@ -31,6 +31,9 @@
   "extra_risk_terms": ["seguridad", "pago", "precio", "datos personales"],
   "extra_cost_disclosure": ["coste adicional", "licencia aparte", "producto de pago"],
 
+  "profiles": {"13": "security", "14": "commercial"},
+  "default_profile": "full",
+
   "architecture": {
     "name": "headless-external",
     "forbidden_terms": ["FastStore", "Store Framework", "Site Editor"]

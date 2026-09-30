@@ -34,6 +34,12 @@ repo), so entries here are grouped by date and cite the commit, not a release ta
   gains `shared` (VTEX + SI + client), the owner is derived from the answer, and write-back fills an Owner
   column. The technical-depth rule follows the reviewing SE's direction. (a90c02b)
 
+- **`vtex-rfp` `v1.14.0`**:
+  - Section profiles: `full`, `security`, `rfi`, `commercial`. Security questionnaires skip the architecture
+    step, and pricing and legal rows are left to the SE.
+  - A Trust Center gate for certification rows.
+  - `edit_row.py`, for reviewing in chat. The SE is always asked where they want to review. (803cabe)
+
 ### Changed
 
 - **`README.md`, `skills/presales/README.md`**: RFP response is no longer listed as out of scope for

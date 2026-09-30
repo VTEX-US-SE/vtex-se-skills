@@ -24,6 +24,14 @@ ROLES = {'full', 'partial', 'none', 'na', 'clarification'}
 # two-value owner could not express; it carries an explicit `owners` list.
 LINE_CLASSES = {'platform', 'integrator-build', 'shared', 'not-deliverable'}
 OWNERS = ('VTEX', 'SI', 'client')
+# What kind of section a row is in. Decided per SECTION at Step 0, not per document: a large RFP
+# often has a functional part, a security annex and a commercial annex.
+#   full        functional/technical requirements; the whole workflow
+#   security    InfoSec / privacy questionnaires; no architecture step, SE review on every row
+#   rfi         capability overviews; coverage optional when the client does not score
+#   commercial  pricing, contract, legal: the skill does NOT answer; the SE decides where it goes
+PROFILES = {'full', 'security', 'rfi', 'commercial'}
+
 SINGLE_OWNER = {'platform': ['VTEX'], 'integrator-build': ['SI'], 'not-deliverable': []}
 
 DEFAULT_CONFIG = {
@@ -45,6 +53,7 @@ DEFAULT_CONFIG = {
         'implementation': 'implementation',
         'assumptions': 'assumptions',
         'section': 'section',
+        'requirement': 'requirement',
     },
     # Logical names (keys of `fields`) whose text goes into the client's file.
     'client_facing': ['response', 'gap', 'implementation', 'assumptions'],
@@ -66,6 +75,9 @@ DEFAULT_CONFIG = {
     # paid reads as included, and the committee prices what it reads.
     'paid_products': ['CX Platform', 'Agent Builder'],
     'architecture': None,
+    # Section -> profile. A key matches its section and every subsection ("13" covers "13.2").
+    'profiles': {},
+    'default_profile': 'full',
     # How each owner is printed in the client's file (write_back `owner` column).
     'owner_labels': {'VTEX': 'VTEX', 'SI': 'Integrator', 'client': 'Client'},
     'owner_joiner': ' + ',
@@ -87,6 +99,9 @@ def load_config(path=None):
                 cfg[k] = v
     elif path:
         raise SystemExit(f'config not found: {path}')
+    badp = {v for v in list((cfg.get('profiles') or {}).values()) + [cfg.get('default_profile')] if v not in PROFILES}
+    if badp:
+        raise SystemExit(f'config: unknown profile(s) {sorted(badp)}; use {sorted(PROFILES)}')
     bad = {v for v in cfg['coverage'].values() if v not in ROLES}
     if bad:
         raise SystemExit(f'config: unknown coverage role(s) {sorted(bad)}; use {sorted(ROLES)}')
@@ -116,6 +131,15 @@ class Row:
 
     def text(self, logical):
         return str(self.get(logical) or '')
+
+    @property
+    def profile(self):
+        sec, best, prof = self.text('section'), -1, None
+        for key, value in (self.cfg.get('profiles') or {}).items():
+            k = str(key)
+            if (sec == k or sec.startswith(k + '.')) and len(k) > best:
+                best, prof = len(k), value
+        return prof or self.raw.get('profile') or self.cfg.get('default_profile') or 'full'
 
     @property
     def line_class(self):
