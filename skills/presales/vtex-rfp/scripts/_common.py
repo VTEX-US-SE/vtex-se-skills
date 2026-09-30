@@ -77,6 +77,8 @@ DEFAULT_CONFIG = {
     'architecture': None,
     # Section -> profile. A key matches its section and every subsection ("13" covers "13.2").
     'profiles': {},
+    # Rows in these profiles that claim coverage must record a known-issues search (known_issues.py).
+    'known_issues_profiles': ['full', 'rfi'],
     'default_profile': 'full',
     # How each owner is printed in the client's file (write_back `owner` column).
     'owner_labels': {'VTEX': 'VTEX', 'SI': 'Integrator', 'client': 'Client'},

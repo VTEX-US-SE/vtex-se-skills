@@ -5,7 +5,7 @@ description: >-
   documentation, with a source URL per factual claim and a coverage value scored
   on the client's matrix. Use when the user pastes RFP requirements, a security
   questionnaire, or a requirements matrix.
-version: 1.14.0
+version: 1.15.0
 ---
 
 # VTEX RFP Response
@@ -30,6 +30,8 @@ and silently degrades every answer. That went unnoticed for 18 days.)*
 **Expected, read only:** `Rocketlane` (commercial shape of the opportunity), `Granola` and `Google Drive`
 (meetings and notes with this prospect), `atlas-agent: retrieve_context` and `Slack` (**precedent from
 comparable VTEX clients**, see Step 0.3).
+
+**Also used:** VTEX's public Known Issues (`known_issues.py`, Step 2), read from its public repo.
 
 **Optional, external:** `vtex-architect` and `vtex-expert` from the Ai Atlas plugin (see Step 0.3 and Step 2).
 They are not bundled here. If they are not installed, skip the steps that use them and search the
@@ -145,6 +147,27 @@ wastes a turn to be told so.
 > So: **propose the architecture from the document, with the evidence and the consequences it forces, and
 > have the SE confirm it before the first row is written.** A filled-in proposal takes two minutes to confirm.
 > A blank question takes half an hour to answer and gets skipped.
+>
+> **Native first.** Default to VTEX native capabilities. Propose an extension (an IO app, middleware, an
+> external service) only where the client's document shows a real business differentiator that native cannot
+> cover, and name that differentiator. "Composable" or "headless" is never a reason on its own: composable
+> without governance creates operational load the client pays for every month. The same principle decides
+> rows: before a row becomes `integrator-build`, check for a native path, including configuration and apps
+> VTEX publishes.
+>
+> **Shape of the proposal.** The SE confirms it faster when every option reads the same way:
+>
+> | Part | What it says |
+> |---|---|
+> | Recommendation | The architecture, in one sentence, and the solution set it implies |
+> | Why | The evidence in the client's document (quote or requirement numbers) |
+> | When to avoid it | The condition that would make it wrong for this client |
+> | Operational impact | What the client's team runs day to day: integrations to maintain, who owns what |
+> | Scalability and cost | What grows with volume, and which parts add recurring cost (licences, custom code to maintain) |
+> | Rows it changes | The requirements whose answer depends on this choice |
+>
+> Keep the cost line qualitative ("one integration fewer to maintain"). Never invent figures: nothing in this
+> skill can cite an ROI number.
 
 > 🔒 **The architecture is a registry entry, not a paragraph in the prompt.** Once chosen, it governs every
 > row, and prose injected into a worker prompt does not govern anything. It is read with varying attention,
@@ -532,8 +555,20 @@ happened:
 3. Draft from what the document says, **in the agreed language** (check it, do not default to English). Attach
    the URL (rule 1), on a VTEX domain (rule 2), in their language where that rendition exists.
 4. Certification requirement → cite the Trust Center too (rule 6).
-5. Found nothing? **Search again with different terms** before concluding it is undocumented (rules 3 and 9).
-6. **Sources contradict? Say so, never pick one silently.** *(Real case: the ISO 27001 page says data is
+5. **Before claiming a capability, check VTEX's Known Issues for it.** Run `known_issues.py search "<the
+   capability in a few words>" --module <module>`, and try one or two phrasings. It reads a fresh copy of
+   `help.vtex.com/known-issues` and returns only issues that still apply. Record the result on the row
+   (`known_issues`, `[]` when nothing matched).
+   - **`No Fix`**: a permanent, documented limit. It goes into the answer as a caveat (rule 7 invariant), with
+     the known-issue page as a source.
+   - **`Backlog` / `Scheduled`**: open, and it may be fixed before go-live. Send it to the SE
+     (`se_review_required`), with the summary and the workaround. **The SE decides whether it reaches the
+     client.**
+
+   If the session cannot run scripts, search `help.vtex.com/known-issues` through the docs connector instead,
+   and say so.
+6. Found nothing? **Search again with different terms** before concluding it is undocumented (rules 3 and 9).
+7. **Sources contradict? Say so, never pick one silently.** *(Real case: the ISO 27001 page says data is
    processed in Brazil; the Data privacy page says Northern Virginia.)*
 
 > **Tip that saves most of the run time:** requirements in one section usually share sources. Fetch the two or
@@ -621,6 +656,20 @@ them. Don't route them to a team, and don't draft an answer.
 
 Do not ask the SE to review what was answered from a cited source with no open question.
 
+**Write every queue item in plain language, as three short lines.** The SE is a colleague who stepped away
+for an hour, not a parser:
+
+> **RFP-7-014, order editing after shipping**
+> What happened: VTEX lets orders be changed only before they ship, and a Backlog known issue affects price
+> recalculation on edited orders.
+> What it means: we answered Partially compliant; if the client's returns process relies on editing shipped
+> orders, the answer may be read as a gap.
+> What we need from you: confirm the returns process, and decide whether the known issue goes in the answer.
+
+Name the row, say it in commerce vocabulary a reader outside the project understands, and make the last line
+an actual request: a decision, a fact, or a confirmation. Flag codes (`client-prerequisite`, `not-found`)
+stay in the data, not in the sentence.
+
 > 🔒 **One executive summary, not a per-row `SE note` column.** An SE reported the per-row note as **double
 > work**: a note beside every row means the reviewer reads the requirement, the answer and a third field, row
 > by row, and still never sees why the answer took the shape it did. Reasoning does not decompose by row. The
@@ -631,6 +680,24 @@ Do not ask the SE to review what was answered from a cited source with no open q
 > Write one document instead. It carries every decision and the reasoning behind it, with the architecture
 > decisions first, since those are what a reviewer cannot reconstruct from a row and what they most need
 > before they start editing. The SE arrives at the rows with the context already loaded.
+>
+> Structure it in this order:
+>
+> 1. **Direct answer.** Three or four sentences: how well VTEX fits, the headline coverage, the one or two
+>    things that decide the deal.
+> 2. **Recommended solution.** The architecture and solution set, in the proposal shape above.
+> 3. **Architecture overview.** How the pieces connect, and what VTEX owns vs the SI vs the client.
+> 4. **Business impact.** What the client gets operationally: fewer systems to integrate, faster launch
+>    paths, what their team runs. **Qualitative only.** No KPIs or ROI figures unless the client supplied
+>    them.
+> 5. **Trade-offs and risks.** Constraints, alternatives, gaps, open known issues, anything
+>    jurisdiction-dependent.
+> 6. **Competitive notes, only if the SE named the competitor.** Where VTEX is stronger and where the
+>    competitor is, stated fairly. This section is for the SE only and never reaches the client's answer
+>    cells: claims about other vendors cannot be cited to a VTEX page.
+> 7. **Roll-up, decisions log, and the SE queue.**
+>
+> When the summary is exported as a document or slides, follow the `vtex-brand-guidelines` skill in this repo.
 >
 > What belongs in it, beyond the decisions: the coverage roll-up with its arithmetic visible; any verdict that
 > changed after a workbook was handed over, flagged explicitly rather than corrected quietly; the solution-set
@@ -665,13 +732,14 @@ paragraph in a prompt.
 Each draft row carries, besides the client's fields: `capability_slug`, `line_class` (`platform` ·
 `integrator-build` · `shared` · `not-deliverable`, see Step 3.0), `owners` (on `shared` rows), `caveat_in_prose`, `evidence_url`, `evidence_urls` (extra
 sources, e.g. the Trust Center), a verbatim `provenance_quote` of at least 40 characters, `searches` (for rule
-9), `review_flag`, `se_review_required`, and `se_question` on `commercial` rows.
+9), `known_issues` (Step 2), `review_flag`, `se_review_required`, and `se_question` on `commercial` rows.
 
 | Order | Script | What it does |
 |---|---|---|
 | 1 | `corpus.py index`, then `corpus.py add <slug> …` | Downloads the pages you cite from VTEX's public docs repos. Refuses `hidden: true`, unpublished and legacy / out-of-solution-set pages at entry, trying the next candidate with the same slug. Use `--worker <id>` for parallel workers |
+| – | `known_issues.py search "<capability>" --module <module>` | Step 2: open known issues for a capability, from a copy refreshed every 24 h. Its result goes in the row's `known_issues` |
 | 2 | `derive_evidence.py _drafts/*.jsonl` | Sets `evidence_url` from whichever page contains the quote, in the client's locale when that rendition exists. Refuses quotes on zero pages (written from a snippet) or on several articles (ambiguous) |
-| 3 | `validate_draft.py _drafts/*.jsonl` | The main gate: scale and required fields, intra-row consistency, `none` ⇔ `not-deliverable`, rule 9, VTEX domain, quote on the cited page, fact tokens, prose (verdict prefix, em dash, process narration, our vocabulary, paid product without disclosure), architecture, registry and cross-row contradictions |
+| 3 | `validate_draft.py _drafts/*.jsonl` | The main gate: scale and required fields, intra-row consistency, `none` ⇔ `not-deliverable`, rule 9, VTEX domain, quote on the cited page, fact tokens, prose (verdict prefix, em dash, process narration, our vocabulary, paid product without disclosure), known issues recorded and handled, Trust Center on certification rows, architecture, registry and cross-row contradictions |
 | 4 | `gap_scope.py _drafts/*.jsonl` | Gaps inherited across capabilities, pointer-only gaps, and the asymmetry hard failure. Run across the combined output of every worker |
 | 5 | `sync_registry.py _drafts/<section>.jsonl` | After a section passes, records its verdicts so later rows cannot contradict them. `--worker <id>` writes a shard |
 | 6 | `verify_quotes.py _drafts/*.jsonl` | Checks each quote on the **live** page the evaluator will open. Reports `UNVERIFIABLE` (not `FAILED`) when the environment serves one cached body for every URL |
@@ -755,6 +823,12 @@ transposed by hand.
 
 ## Version history
 
+- **1.15.0 (2026-09-30).**
+  - A Known Issues check before claiming a capability, with a gate: a `No Fix` issue is a caveat in the
+    answer, and an open one goes to the SE.
+  - "Native first" as a written principle, and a fixed shape for the architecture proposal.
+  - SE queue items in plain language (what happened, what it means, what we need from you).
+  - An executive summary structure, with competitive notes only when the SE names the competitor.
 - **1.14.0 (2026-09-30).** Section profiles (`full` · `security` · `rfi` · `commercial`) decided at Step 0:
   security questionnaires skip the architecture step and require SE review on every row, and commercial rows
   are left to the SE. Rule 6 (Trust Center on certification rows) is now a gate. Review in chat with

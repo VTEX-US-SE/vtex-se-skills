@@ -171,6 +171,21 @@ def check(rows, cfg, manifest, registry):
         for u in r.raw.get('evidence_urls') or []:
             if not on_citable_domain(u, cfg['citable_domains']):
                 E(f'evidence_urls has a non-VTEX domain (rule 2): {u}')
+        # --- known issues (known_issues.py): searched before claiming a capability ---
+        kis = r.raw.get('known_issues')
+        if role in ('full', 'partial') and profile in (cfg.get('known_issues_profiles') or []) and kis is None:
+            E("no known-issues search recorded. Run known_issues.py search and store the result in "
+              "'known_issues' ([] when nothing matched)")
+        for ki in kis or []:
+            url, status = str(ki.get('url') or ''), str(ki.get('status') or '').lower()
+            if not re.match(r'https://help\.vtex\.com/\w\w/known-issues/', url):
+                E(f'known_issues entry is not a help.vtex.com known-issue URL: {url!r}')
+            if status == 'no fix' and cav != 'yes':
+                E(f"a 'No Fix' known issue applies ({url}). It is a permanent limit: write it into the answer "
+                  "and set caveat_in_prose='yes'")
+            if status in ('backlog', 'scheduled') and not r.raw.get('se_review_required'):
+                E(f'an open known issue applies ({url}). Set se_review_required=true: the SE decides whether '
+                  'it reaches the client')
         if role in ('full', 'partial', 'none') and klass not in LINE_CLASSES:
             E(f'line_class {klass!r} is missing or invalid ({" | ".join(sorted(LINE_CLASSES))}). '
               'Set it AFTER writing the answer, from what the answer says')

@@ -8,6 +8,7 @@ Stdlib only. Each test runs the real script in a throwaway opportunity folder.
 """
 import copy
 import json
+import os
 import pathlib
 import subprocess
 import sys
@@ -27,6 +28,7 @@ GOOD = {
     'evidence_url': URL, 'provenance_quote': QUOTE, 'capability_slug': 'pci-dss',
     'line_class': 'platform', 'se_review_required': True,
     'evidence_urls': ['https://compliance.vtex.com/'],
+    'known_issues': [],
 }
 
 
@@ -239,6 +241,28 @@ class ValidateDraft(unittest.TestCase):
 
     def test_unknown_profile_in_config(self):
         self.assertRejects([GOOD], 'unknown profile', config={'profiles': {'1': 'legal'}})
+
+    def test_known_issue_search_required(self):
+        self.assertRejects([row(known_issues=None)], 'no known-issues search recorded')
+
+    def test_no_fix_issue_must_be_a_caveat(self):
+        ki = [{'url': 'https://help.vtex.com/en/known-issues/x', 'status': 'No Fix', 'title': 't'}]
+        self.assertRejects([row(known_issues=ki)], "'No Fix' known issue applies")
+
+    def test_no_fix_issue_with_caveat_passes(self):
+        ki = [{'url': 'https://help.vtex.com/en/known-issues/x', 'status': 'No Fix', 'title': 't'}]
+        f = Folder([row(known_issues=ki, caveat_in_prose='yes')])
+        code, out = f.run('validate_draft.py', '_drafts/d.jsonl')
+        f.close()
+        self.assertEqual(code, 0, out)
+
+    def test_open_issue_goes_to_the_se(self):
+        ki = [{'url': 'https://help.vtex.com/en/known-issues/x', 'status': 'Backlog', 'title': 't'}]
+        self.assertRejects([row(known_issues=ki, se_review_required=None)], 'an open known issue applies')
+
+    def test_known_issue_url_must_be_a_known_issue(self):
+        ki = [{'url': 'https://developers.vtex.com/docs/guides/x', 'status': 'Backlog', 'title': 't'}]
+        self.assertRejects([row(known_issues=ki)], 'not a help.vtex.com known-issue URL')
 
     def test_duplicate_id(self):
         self.assertRejects([GOOD, GOOD], 'appears 2 times')
@@ -527,6 +551,49 @@ class EditRow(unittest.TestCase):
         code, out = self.f.run('edit_row.py', 'RFP-9-999', 'coverage=Gap')
         self.assertNotEqual(code, 0)
         self.assertIn('not found', out)
+
+
+class KnownIssues(unittest.TestCase):
+    """Offline: a fixture folder stands in for the vtexdocs/known-issues repo."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        base = pathlib.Path(self.tmp.name) / 'docs' / 'en' / 'known-issues'
+        for mod, slug, title, status, summary in [
+            ('Checkout', 'apple-pay-safari-only', 'Apple Pay button only renders on Safari', 'No Fix',
+             'The Apple Pay button is not displayed on Chrome.'),
+            ('Checkout', 'gift-card-two-cards', 'Problem to pay with gift card and two cards', 'Backlog',
+             'The screen jumps when paying the difference.'),
+            ('Checkout', 'old-apple-pay-bug', 'Apple Pay token expired', 'Fixed', 'Solved.'),
+        ]:
+            (base / mod).mkdir(parents=True, exist_ok=True)
+            (base / mod / f'{slug}.md').write_text(f'---\ntitle: "{title}"\nslug: {slug}\nkiStatus: {status}\n---\n\n'
+                                                   f'## Summary\n\n{summary}\n\n## Workaround\n\nN/A\n')
+        self.env = dict(os.environ, VTEX_RFP_KI_DIR=self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def search(self, *args):
+        p = subprocess.run([sys.executable, str(SCRIPTS / 'known_issues.py'), 'search', *args, '--json'],
+                           capture_output=True, text=True, env=self.env)
+        self.assertEqual(p.returncode, 0, p.stderr)
+        return json.loads(p.stdout)
+
+    def test_finds_open_issue_and_skips_fixed(self):
+        hits = self.search('apple pay')
+        self.assertEqual([h['status'] for h in hits], ['No Fix'])
+        self.assertEqual(hits[0]['url'], 'https://help.vtex.com/en/known-issues/apple-pay-safari-only')
+
+    def test_one_common_word_is_not_enough(self):
+        titles = [h['title'] for h in self.search('apple pay')]
+        self.assertNotIn('Problem to pay with gift card and two cards', titles)
+
+    def test_all_statuses_includes_fixed(self):
+        self.assertEqual(len(self.search('apple pay', '--all-statuses')), 2)
+
+    def test_module_filter(self):
+        self.assertEqual(self.search('apple pay', '--module', 'Payments'), [])
 
 if __name__ == '__main__':
     unittest.main()
