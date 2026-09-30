@@ -29,6 +29,11 @@ repo), so entries here are grouped by date and cite the commit, not a release ta
   marketplace add VTEX-US-SE/vtex-se-skills`. The plugin goes to `0.2.0`, and the README gains an **Install**
   section. (fa8dbc9)
 
+- **`vtex-rfp` `v1.13.0`**: `handoff.py` hands the review workbook to the SE and reads their edits back with a
+  three-sided diff, so our later edits aren't reverted and double edits surface as conflicts. `line_class`
+  gains `shared` (VTEX + SI + client), the owner is derived from the answer, and write-back fills an Owner
+  column. The technical-depth rule follows the reviewing SE's direction. (a90c02b)
+
 ### Changed
 
 - **`README.md`, `skills/presales/README.md`**: RFP response is no longer listed as out of scope for

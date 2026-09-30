@@ -36,11 +36,13 @@
     "forbidden_terms": ["FastStore", "Store Framework", "Site Editor"]
   },
 
+  "owner_labels": {"VTEX": "VTEX", "SI": "Integrator", "client": "Client"},
+
   "write_back": {
     "sheet": "Requirements",
     "header_row": 1,
     "key_column": "A",
-    "columns": {"coverage": "H", "response": "I", "evidence_url": "J"},
-    "new_headers": {"I": "Response detail", "J": "Reference"}
+    "columns": {"coverage": "H", "response": "I", "evidence_url": "J", "owner": "K"},
+    "new_headers": {"I": "Response detail", "J": "Reference", "K": "Owner"}
   }
 }

@@ -168,6 +168,38 @@ class ValidateDraft(unittest.TestCase):
         self.assertRejects([row(response='La plataforma cumple totalmente con PCI DSS v4.')], 'restates the verdict',
                            config={'extra_verdict_phrases': ['cumple (?:totalmente|parcialmente)']})
 
+    def test_line_class_required(self):
+        self.assertRejects([row(line_class=None)], 'line_class None is missing or invalid')
+
+    def test_platform_but_prose_says_integrator_builds(self):
+        # The motivating A1 case: class set beside the prose instead of read off it.
+        self.assertRejects([row(coverage='Partial', gap='g',
+                                response='VTEX exposes the order APIs; the integrator builds the BIA report on top.')],
+                           "line_class 'platform' but the answer says someone else does the work")
+
+    def test_shared_needs_two_owners(self):
+        self.assertRejects([row(coverage='Partial', gap='g', line_class='shared', owners=['VTEX'])],
+                           "'shared' needs an 'owners' list")
+
+    def test_owners_contradict_class(self):
+        self.assertRejects([row(owners=['SI'])], 'contradict line_class')
+
+    def test_shared_three_way_passes(self):
+        f = Folder([row(coverage='Partial', gap='The client maintains the ERP feed.', line_class='shared',
+                        owners=['VTEX', 'SI', 'client'],
+                        response='VTEX is a PCI DSS v4 Level 1 service provider; the integrator builds the ERP connector.')])
+        code, out = f.run('validate_draft.py', '_drafts/d.jsonl')
+        f.close()
+        self.assertEqual(code, 0, out)
+
+    def test_custom_row_implementation_detail_warns(self):
+        f = Folder([row(rfp_id='RFP-2-001', capability_slug='x', coverage='Partial', gap='g', line_class='integrator-build',
+                        evidence_url=None, provenance_quote=None,
+                        response='The integrator builds it: POST /api/oms/pvt/orders then map each field.')], corpus=False)
+        code, out = f.run('validate_draft.py', '_drafts/d.jsonl')
+        f.close()
+        self.assertIn('Custom rows stay in business language', out)
+
     def test_duplicate_id(self):
         self.assertRejects([GOOD, GOOD], 'appears 2 times')
 
@@ -305,7 +337,7 @@ def make_xlsx(path):
 class WriteBack(unittest.TestCase):
 
     CFG = {'write_back': {'sheet': 'Requirements', 'header_row': 1, 'key_column': 'A',
-                          'columns': {'coverage': 'H', 'response': 'I', 'evidence_url': 'J'},
+                          'columns': {'coverage': 'H', 'response': 'I', 'evidence_url': 'J', 'owner': 'K'},
                           'new_headers': {'I': 'Response detail'}}}
 
     def test_writes_copy_and_preserves_parts(self):
@@ -322,6 +354,7 @@ class WriteBack(unittest.TestCase):
         self.assertIn(GOOD['response'], sheet)
         self.assertIn(URL, sheet)
         self.assertIn('Response detail', sheet)
+        self.assertIn('<c r="K2" s="5" t="inlineStr"><is><t xml:space="preserve">VTEX</t>', sheet)
         self.assertIn('xl/drawings/drawing1.xml', names)
         self.assertIn('xl/media/image1.png', names)
         self.assertNotIn('OOTB', original)
@@ -343,6 +376,65 @@ class WriteBack(unittest.TestCase):
         self.assertEqual(code, 1, out)
         self.assertIn('no matching ID', out)
 
+
+class Handoff(unittest.TestCase):
+    """A3: the SE's edits come back, ours are not reverted, and a double edit is a conflict."""
+
+    def setUp(self):
+        rows = [GOOD, row(rfp_id='RFP-1-002', capability_slug='b', response='Orders can be edited for 30 days.')]
+        self.f = Folder(rows, config=WriteBack.CFG, corpus=False)
+        make_xlsx(self.f.path / 'client.xlsx')
+        code, out = self.f.run('write_back.py', 'client.xlsx', 'review.xlsx', '_drafts/d.jsonl')
+        self.assertEqual(code, 0, out)
+        code, out = self.f.run('handoff.py', 'freeze', 'review.xlsx', '--name', 'h1')
+        self.assertEqual(code, 0, out)
+        # The SE edits their copy: a fact on row 2, a verdict on row 1.
+        se = [row(coverage='Partial'), row(rfp_id='RFP-1-002', capability_slug='b',
+                                           response='Orders can be edited for 7 days.')]
+        (self.f.path / 'se.jsonl').write_text(''.join(json.dumps(r) + '\n' for r in se))
+        code, out = self.f.run('write_back.py', 'client.xlsx', 'returned.xlsx', 'se.jsonl')
+        self.assertEqual(code, 0, out)
+
+    def tearDown(self):
+        self.f.close()
+
+    def drafts(self):
+        return {r['rfp_id']: r for r in map(json.loads, (self.f.path / '_drafts' / 'd.jsonl').read_text().splitlines())}
+
+    def test_se_edits_applied_and_classified(self):
+        code, out = self.f.run('handoff.py', 'reconcile', '_handoff/h1', 'returned.xlsx', '_drafts/d.jsonl', '--apply')
+        self.assertEqual(code, 0, out)
+        d = self.drafts()
+        self.assertEqual(d['RFP-1-002']['response'], 'Orders can be edited for 7 days.')
+        self.assertEqual(d['RFP-1-001']['coverage'], 'Partial')
+        self.assertIn('verdict 1', out)
+        self.assertIn('fact 1', out)
+
+    def test_our_later_edit_is_not_reverted(self):
+        # We moved on after the handoff; the SE did not touch this cell. A two-way diff would revert it.
+        rows = list(self.drafts().values())
+        rows[0]['evidence_url'] = URL + '-v2'
+        self.f.write_rows(rows)
+        self.f.run('handoff.py', 'reconcile', '_handoff/h1', 'returned.xlsx', '_drafts/d.jsonl', '--apply')
+        self.assertEqual(self.drafts()['RFP-1-001']['evidence_url'], URL + '-v2')
+
+    def test_both_changed_is_a_conflict(self):
+        rows = list(self.drafts().values())
+        rows[1]['response'] = 'Orders can be edited for 14 days.'
+        self.f.write_rows(rows)
+        code, out = self.f.run('handoff.py', 'reconcile', '_handoff/h1', 'returned.xlsx', '_drafts/d.jsonl', '--apply')
+        self.assertEqual(code, 1, out)
+        self.assertIn('Conflicts: 1', out)
+        self.assertEqual(self.drafts()['RFP-1-002']['response'], 'Orders can be edited for 14 days.')
+
+    def test_report_only_without_apply(self):
+        self.f.run('handoff.py', 'reconcile', '_handoff/h1', 'returned.xlsx', '_drafts/d.jsonl')
+        self.assertEqual(self.drafts()['RFP-1-002']['response'], 'Orders can be edited for 30 days.')
+
+    def test_frozen_handoff_is_never_overwritten(self):
+        code, out = self.f.run('handoff.py', 'freeze', 'review.xlsx', '--name', 'h1')
+        self.assertNotEqual(code, 0)
+        self.assertIn('never overwritten', out)
 
 if __name__ == '__main__':
     unittest.main()

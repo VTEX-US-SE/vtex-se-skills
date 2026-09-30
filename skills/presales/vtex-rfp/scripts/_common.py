@@ -20,6 +20,12 @@ import re
 # about "full / partial / none" without knowing the client's words for them.
 ROLES = {'full', 'partial', 'none', 'na', 'clarification'}
 
+# Who does the work on a row. `shared` is the real three-way split (VTEX + SI + client) that a
+# two-value owner could not express; it carries an explicit `owners` list.
+LINE_CLASSES = {'platform', 'integrator-build', 'shared', 'not-deliverable'}
+OWNERS = ('VTEX', 'SI', 'client')
+SINGLE_OWNER = {'platform': ['VTEX'], 'integrator-build': ['SI'], 'not-deliverable': []}
+
 DEFAULT_CONFIG = {
     # The skill's own scale, used when the client's matrix defines none. Say so in the
     # roll-up so the SE can remap it.
@@ -60,6 +66,11 @@ DEFAULT_CONFIG = {
     # paid reads as included, and the committee prices what it reads.
     'paid_products': ['CX Platform', 'Agent Builder'],
     'architecture': None,
+    # How each owner is printed in the client's file (write_back `owner` column).
+    'owner_labels': {'VTEX': 'VTEX', 'SI': 'Integrator', 'client': 'Client'},
+    'owner_joiner': ' + ',
+    # Extra phrases, in the client's language, saying someone other than VTEX builds a part.
+    'extra_builder_phrases': [],
 }
 
 
@@ -105,6 +116,20 @@ class Row:
 
     def text(self, logical):
         return str(self.get(logical) or '')
+
+    @property
+    def line_class(self):
+        return self.raw.get('line_class') or self.raw.get('row_class')
+
+    def owners(self):
+        """Owners derived from line_class; `shared` rows carry their own list."""
+        if self.line_class == 'shared':
+            return [o for o in OWNERS if o in (self.raw.get('owners') or [])]
+        return SINGLE_OWNER.get(self.line_class, [])
+
+    def owner_label(self):
+        labels = self.cfg.get('owner_labels') or {}
+        return (self.cfg.get('owner_joiner') or ' + ').join(labels.get(o, o) for o in self.owners())
 
     def client_text(self):
         return ' '.join(self.text(k) for k in self.cfg['client_facing'])
