@@ -3,6 +3,27 @@
 This repo doesn't version as a whole (see `CONTRIBUTING.md` — versioning is per skill, not per
 repo), so entries here are grouped by date and cite the commit, not a release tag.
 
+## 2026-09-30
+
+### Added
+
+- **`vtex-rfp`** (Djan Magno): `v1.11.0`, under `skills/presales/`, model-invoked. It answers RFP/RFI
+  requirements and security questionnaires from VTEX's published documentation, with a source URL per claim
+  and a coverage value on the client's scale.
+  - Sanitized for this public repo: client and colleague names were removed, and the internal capability
+    matrices aren't bundled.
+  - `vtex-architect` / `vtex-expert` (Ai Atlas plugin) are documented as optional external prerequisites,
+    not vendored.
+  - The validation and write-back scripts were left out until they're generalized. SKILL.md lists their
+    checks under "Validation gates" so they can be run by hand.
+
+  (8130342)
+
+### Changed
+
+- **`README.md`, `skills/presales/README.md`**: RFP response is no longer listed as out of scope for
+  `presales/`. (8130342)
+
 ## 2026-09-28
 
 ### Added
