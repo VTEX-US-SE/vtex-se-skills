@@ -19,10 +19,20 @@ repo), so entries here are grouped by date and cite the commit, not a release ta
 
   (8130342)
 
+- **`vtex-rfp` scripts** (`v1.12.0`): generalized validation and write-back tools under
+  `skills/presales/vtex-rfp/scripts/`, driven by a per-RFP `rfp.config.json` (template in `templates/`).
+  They cover the corpus with the hidden/legacy refusal, evidence derivation, `validate_draft`, `gap_scope`,
+  the capability registry, live quote verification, the roll-up, and an `.xlsx` write-back that preserves
+  drawings and tables. `tests/test_gates.py` seeds one bad row per gate. (6d7edc6)
+
+- **`.claude-plugin/marketplace.json`**: the repo is now installable from Claude Code with `/plugin
+  marketplace add VTEX-US-SE/vtex-se-skills`. The plugin goes to `0.2.0`, and the README gains an **Install**
+  section. (fa8dbc9)
+
 ### Changed
 
 - **`README.md`, `skills/presales/README.md`**: RFP response is no longer listed as out of scope for
-  `presales/`. (8130342)
+  `presales/`. (8130342). Also dropped its pointer to a private vault path. (fa8dbc9)
 
 ## 2026-09-28
 

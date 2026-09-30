@@ -39,8 +39,22 @@ VTEX's answers.
   `vtexprojects/ai-atlas-integrations` as a "Claude Plugin" GitHub Release, and you install it by opening the
   `.plugin` file. Copying them here would create a second copy that drifts (see `CONTRIBUTING.md`, "Hard
   dependencies on externally-maintained skills"). Without them, the skill searches the documentation directly.
-- **Validation and write-back scripts: not shipped yet.** The skill lists the checks to run by hand under
-  "Validation gates". Generalized scripts are planned for a follow-up PR.
+- **Python 3 and `curl`**, only to run the scripts. Stdlib only, nothing to install.
+
+## Reference files
+
+| File | Purpose |
+|---|---|
+| `templates/rfp.config.example.json` | Per-RFP config: the client's coverage scale mapped to roles, field names, row-ID pattern, locale, extra patterns in the client's language, the confirmed architecture, and the write-back column mapping |
+| `scripts/corpus.py` + `scope_guard.py` | Local copy of the cited VTEX pages; refuses hidden, unpublished and legacy / out-of-scope pages |
+| `scripts/derive_evidence.py` | Derives each row's evidence URL from the page containing its quote |
+| `scripts/validate_draft.py` | The main gate before anything reaches the client's file |
+| `scripts/gap_scope.py` | Stops a gap from spreading across capabilities |
+| `scripts/sync_registry.py` | One canonical verdict per capability across sections and workers |
+| `scripts/verify_quotes.py` | Checks each quote on the live page the evaluator will open |
+| `scripts/rollup.py` | Step 4 coverage numbers with the arithmetic shown |
+| `scripts/write_back.py` | Writes into a copy of the client's `.xlsx` without dropping drawings or tables |
+| `scripts/tests/test_gates.py` | Seeds one bad row per check and asserts it is rejected |
 
 ## Author
 

@@ -22,7 +22,7 @@ layout, plus per-skill versioning from gstack:
 - `AGENTS.md` / `CLAUDE.md` — same content, so Claude Code and other agent runtimes pick up the
   same rules.
 - `CONTEXT.md` — VTEX-specific vocabulary (SE, Rocketlane, Atlas, FastStore, and so on).
-- `.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/` — plugin manifests so this repo can be
+- `.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/` — plugin manifests (plus `.claude-plugin/marketplace.json`, which makes the repo installable from Claude Code) so this repo can be
   installed directly in each runtime. See **Runtime support** below for why there's no
   Gemini/Grok manifest.
 - `skills/<category>/<skill-name>/SKILL.md` — one folder per skill, grouped by category. Each
@@ -46,6 +46,24 @@ all under `skills/presales/`. Tracked in Rocketlane task #43751748. Added 28/09:
 with its own new-user guide (`skills/presales/demo-video-production/README.md`). Added 30/09:
 `vtex-rfp` (Djan Magno), the RFP/RFI response skill, which reverses the earlier "RFP is out of
 scope here" note.
+
+## Install
+
+**Claude Code** (all skills in this repo, as one plugin):
+
+```
+/plugin marketplace add VTEX-US-SE/vtex-se-skills
+/plugin install vtex-se-skills@vtex-se-skills
+```
+
+Restart Claude Code afterwards. To pick up new versions: `/plugin marketplace update vtex-se-skills`, then
+`/plugin update vtex-se-skills@vtex-se-skills`.
+
+If you had a skill from this repo installed by hand (a copy or symlink in `~/.claude/skills/`), delete it
+first. Two skills with the same name and description compete to trigger.
+
+Some skills need connectors or keys of their own (for example `vtex-rfp` requires the VTEX Developer MCP).
+Each skill's page under `docs/` lists its prerequisites.
 
 ## Runtime support
 

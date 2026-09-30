@@ -5,7 +5,7 @@ description: >-
   documentation, with a source URL per factual claim and a coverage value scored
   on the client's matrix. Use when the user pastes RFP requirements, a security
   questionnaire, or a requirements matrix.
-version: 1.11.0
+version: 1.12.0
 ---
 
 # VTEX RFP Response
@@ -581,7 +581,7 @@ vocabulary has no failure state is not a result.**
 `Caveat in prose?` carries the Step 3.3 outcome: `yes` · `n/a` · `unchecked`. **Never `no`**, because `no`
 means the invariant was violated and the row is unfinished.
 
-For runs that go through the validation checks, keep each row as a structured record too (one JSON object per
+Keep each row as a structured record too (one JSON object per
 requirement) carrying `capability_slug`, `line_class`, `evidence_url` and a verbatim `provenance_quote` from
 the cited page, alongside the columns above.
 
@@ -617,26 +617,47 @@ Do not ask the SE to review what was answered from a cited source with no open q
 
 ## Validation gates
 
-The rules above that say "advice does not fire, a gate does" were enforced on real runs by scripts. **Those
-scripts are not in this repo yet.** The versions that ran were shaped around one client's matrix (its field
-names, coverage enum, row-ID format and language), and they're being generalized before they ship here.
+The rules above that say "advice does not fire, a gate does" are enforced by the scripts in `scripts/`
+(Python 3, stdlib only, plus `curl`). Run them **from the opportunity folder**, where they read and write:
 
-Until they land, **run these checks yourself before anything reaches the client's file, and report the result
-of each one to the SE**, including which rows failed:
+```
+rfp.config.json      the client's scale, field names, row IDs, language, write-back mapping
+                     (copy templates/rfp.config.example.json; every key is optional)
+_drafts/*.jsonl      one JSON object per requirement (fields below)
+_corpus/             local copy of the cited VTEX pages (corpus.py)
+_registry/           canonical verdict per capability (sync_registry.py)
+```
 
-| Check | Rejects a row when |
-|---|---|
-| Citation | `evidence_url` is not on a VTEX domain (rule 2), or the page is `hidden: true` / legacy |
-| Provenance quote | the `provenance_quote` is not a literal substring of the page at `evidence_url` (a paraphrase of a snippet fails) |
-| Fact tokens | numbers, versions, product and endpoint names in the answer do not appear in the cited source |
-| Rule 9 | a "not supported" / `not-found` row does not record two distinct searches |
-| Consistency | coverage is outside the client's enum; "compliant" with a gap filled in; partial with no gap described; `integrator-build` marked fully compliant |
-| Registry | the same `capability_slug` carries a different verdict in another row, or the prose contradicts the recorded architecture |
-| Gap scope | a gap is inherited from a row with a different `capability_slug`, or no inheriting row is `Compliant` |
-| Prose | the answer opens with a coverage value, contains an em dash, or narrates our process |
+**Fill in the config at Step 0**, right after reading the client's document. The config is where the
+client's own coverage vocabulary lives: each of their values maps to a role (`full`, `partial`, `none`, `na`,
+`clarification`), so the gates reason about roles and never about one client's words. Record the confirmed
+architecture there too (`architecture.forbidden_terms`), which makes it a registry entry rather than a
+paragraph in a prompt.
 
-**Seed one bad row per check and confirm it is rejected before trusting a clean pass** (see "A gate you have
-not seen reject anything is not a gate").
+Each draft row carries, besides the client's fields: `capability_slug`, `line_class` (`platform` ·
+`integrator-build` · `not-deliverable`), `caveat_in_prose`, `evidence_url`, a verbatim `provenance_quote`
+of at least 40 characters, `searches` (for rule 9), `review_flag` and `se_review_required`.
+
+| Order | Script | What it does |
+|---|---|---|
+| 1 | `corpus.py index`, then `corpus.py add <slug> …` | Downloads the pages you cite from VTEX's public docs repos. Refuses `hidden: true`, unpublished and legacy / out-of-solution-set pages at entry, trying the next candidate with the same slug. Use `--worker <id>` for parallel workers |
+| 2 | `derive_evidence.py _drafts/*.jsonl` | Sets `evidence_url` from whichever page contains the quote, in the client's locale when that rendition exists. Refuses quotes on zero pages (written from a snippet) or on several articles (ambiguous) |
+| 3 | `validate_draft.py _drafts/*.jsonl` | The main gate: scale and required fields, intra-row consistency, `none` ⇔ `not-deliverable`, rule 9, VTEX domain, quote on the cited page, fact tokens, prose (verdict prefix, em dash, process narration, our vocabulary, paid product without disclosure), architecture, registry and cross-row contradictions |
+| 4 | `gap_scope.py _drafts/*.jsonl` | Gaps inherited across capabilities, pointer-only gaps, and the asymmetry hard failure. Run across the combined output of every worker |
+| 5 | `sync_registry.py _drafts/<section>.jsonl` | After a section passes, records its verdicts so later rows cannot contradict them. `--worker <id>` writes a shard |
+| 6 | `verify_quotes.py _drafts/*.jsonl` | Checks each quote on the **live** page the evaluator will open. Reports `UNVERIFIABLE` (not `FAILED`) when the environment serves one cached body for every URL |
+| 7 | `rollup.py _drafts/*.jsonl` | Step 4 numbers per section, with the arithmetic and excluded rows shown |
+| 8 | `write_back.py <client.xlsx> <new.xlsx> _drafts/*.jsonl` | Transposes into a copy of the client's file (see below) |
+
+Every script exits non-zero when it rejects something. **Nothing reaches the client's file until 3 and 4 exit
+0.** Report every rejection to the SE with its row ID. Don't fix a row just to make the gate pass.
+
+`scripts/tests/test_gates.py` seeds one bad row per check and asserts it is rejected (`python3 -m unittest
+discover -s scripts/tests`). **When you add a check, add its seeded row in the same change** (see "A gate you
+have not seen reject anything is not a gate").
+
+**If the session cannot run scripts**, run the same checks by reading the rows and report each one's result to
+the SE.
 
 ## Transposing into the client's file
 
@@ -648,21 +669,31 @@ The output of this skill is a **table**. Getting it into the client's spreadshee
 **Edit the `.xlsx` XML in place rather than rewriting the workbook** with a library like `openpyxl`. A rewrite
 silently drops the drawings, images and Excel Tables the client embedded. *(Measured: a first attempt filled
 all 140 cells correctly and destroyed 5 drawings and 1 image without raising anything. The only signal was the
-file dropping from 185 KB to 80 KB.)* Copy every zip entry byte for byte and change only the requirements
-sheet. After writing, compare file size and the count of drawings/tables against the original.
+file dropping from 185 KB to 80 KB.)*
+
+`write_back.py` does exactly this. It finds each row by the ID in the client's key column, writes the mapped
+fields (`write_back` in the config) and copies every other zip entry byte for byte. It refuses to write to the
+input path or to an existing file, and it compares drawing/media/table counts before and after. Run it with
+`--check` first: that lists draft rows with no matching ID and client rows left unanswered, and writes nothing.
 
 **If the session cannot run scripts or reach the file:** output the table and say plainly that it must be
 transposed by hand.
 
 ## Not in this version
 
-- **Validation and write-back scripts.** See "Validation gates".
+- **Review-workbook reconciliation** (reading SE edits back, and the delta of what they changed). It waits on
+  open question A3, the three-sided diff.
+- **A coverage summary tab in the client's workbook.** `rollup.py` prints the numbers; adding them as a tab
+  depends on each client's layout.
 - **Historical response corpus.** It belongs as a *verification* layer (checking a draft against what VTEX has
   promised before), not as a source for generating answers.
 - **Document parsing.** The RFP arrives as text; extraction happens before this skill runs.
 
 ## Version history
 
+- **1.12.0 (2026-09-30).** The validation and write-back scripts are back, generalized: `rfp.config.json`
+  now carries the client's scale, field names, row IDs, language and column mapping. Seeded-bad-row tests
+  cover every gate. Added `rollup.py` for Step 4.
 - **1.11.0 (2026-09-30).** Migrated into `vtex-se-skills`. Client and colleague names removed. The capability
   matrices are no longer bundled or referenced by file. `vtex-architect` and `vtex-expert` became optional
   external dependencies. The validation scripts were pulled pending generalization, so their checks are now
